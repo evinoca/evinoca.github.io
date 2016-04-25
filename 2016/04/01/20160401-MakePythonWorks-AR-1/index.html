@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Tools," />
+  <meta name="keywords" content="Python," />
 
 
 
@@ -57,25 +57,45 @@
 
 
 
-<meta name="description" content="在线工具stackedit，在线的markdown编辑器，要是能同步到github就好了https://stackedit.io
-ProcessOn，在线的UML绘图工具https://www.processon.com
-道客Cloud，免费的Docker平台，免费的也就只能玩玩儿https://dashboard.daocloud.io/
-七牛云，在线存储空间https://portal.qin">
+<meta name="description" content="半年前行政同事说需要搞一个考勤管理工具，搞就搞吧，搞成一坨我也没办法。
+希望不要太给测试部门丢人…
+大概思路基本上能给到的数据是两个excel表，一个是打卡机出来的数据，一个是员工花名册。输出的东西希望是非常直观的数据，并且可以编辑，可以分发。减少行政同事的工作量。
+输入
+考勤记录-excel文件
+组织结构-excel文件
+对于由于法定假期和调休导致的考勤异常需要进行条件判断
+
+输出
+仍然是exc">
 <meta property="og:type" content="article">
-<meta property="og:title" content="非常俗套的常用工具">
-<meta property="og:url" content="http://evinoca.github.io/2016/03/31/非常俗套的常用工具/index.html">
+<meta property="og:title" content="考勤时间统计 with Python （1）">
+<meta property="og:url" content="http://evinoca.github.io/2016/04/01/20160401-MakePythonWorks-AR-1/index.html">
 <meta property="og:site_name" content="Audric's Precious Toy Box">
-<meta property="og:description" content="在线工具stackedit，在线的markdown编辑器，要是能同步到github就好了https://stackedit.io
-ProcessOn，在线的UML绘图工具https://www.processon.com
-道客Cloud，免费的Docker平台，免费的也就只能玩玩儿https://dashboard.daocloud.io/
-七牛云，在线存储空间https://portal.qin">
-<meta property="og:updated_time" content="2016-03-31T06:55:07.960Z">
+<meta property="og:description" content="半年前行政同事说需要搞一个考勤管理工具，搞就搞吧，搞成一坨我也没办法。
+希望不要太给测试部门丢人…
+大概思路基本上能给到的数据是两个excel表，一个是打卡机出来的数据，一个是员工花名册。输出的东西希望是非常直观的数据，并且可以编辑，可以分发。减少行政同事的工作量。
+输入
+考勤记录-excel文件
+组织结构-excel文件
+对于由于法定假期和调休导致的考勤异常需要进行条件判断
+
+输出
+仍然是exc">
+<meta property="og:image" content="http://7xsfv0.com1.z0.glb.clouddn.com/Class%20Diagram.png">
+<meta property="og:updated_time" content="2016-04-01T10:17:52.121Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="非常俗套的常用工具">
-<meta name="twitter:description" content="在线工具stackedit，在线的markdown编辑器，要是能同步到github就好了https://stackedit.io
-ProcessOn，在线的UML绘图工具https://www.processon.com
-道客Cloud，免费的Docker平台，免费的也就只能玩玩儿https://dashboard.daocloud.io/
-七牛云，在线存储空间https://portal.qin">
+<meta name="twitter:title" content="考勤时间统计 with Python （1）">
+<meta name="twitter:description" content="半年前行政同事说需要搞一个考勤管理工具，搞就搞吧，搞成一坨我也没办法。
+希望不要太给测试部门丢人…
+大概思路基本上能给到的数据是两个excel表，一个是打卡机出来的数据，一个是员工花名册。输出的东西希望是非常直观的数据，并且可以编辑，可以分发。减少行政同事的工作量。
+输入
+考勤记录-excel文件
+组织结构-excel文件
+对于由于法定假期和调休导致的考勤异常需要进行条件判断
+
+输出
+仍然是exc">
+<meta name="twitter:image" content="http://7xsfv0.com1.z0.glb.clouddn.com/Class%20Diagram.png">
 
 
 
@@ -93,7 +113,7 @@ ProcessOn，在线的UML绘图工具https://www.processon.com
   };
 </script>
 
-  <title> 非常俗套的常用工具 | Audric's Precious Toy Box </title>
+  <title> 考勤时间统计 with Python （1） | Audric's Precious Toy Box </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -243,7 +263,7 @@ ProcessOn，在线的UML绘图工具https://www.processon.com
             
             
               
-                非常俗套的常用工具
+                考勤时间统计 with Python （1）
               
             
           </h1>
@@ -255,8 +275,8 @@ ProcessOn，在线的UML绘图工具https://www.processon.com
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-31T12:26:52+08:00" content="2016-03-31">
-              2016-03-31
+            <time itemprop="dateCreated" datetime="2016-04-01T18:02:03+08:00" content="2016-04-01">
+              2016-04-01
             </time>
           </span>
 
@@ -269,8 +289,8 @@ ProcessOn，在线的UML绘图工具https://www.processon.com
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Tools-Collector/" itemprop="url" rel="index">
-                    <span itemprop="name">Tools Collector</span>
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
                   </a>
                 </span>
 
@@ -285,8 +305,8 @@ ProcessOn，在线的UML绘图工具https://www.processon.com
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/31/非常俗套的常用工具/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/03/31/非常俗套的常用工具/" itemprop="commentsCount"></span>
+                <a href="/2016/04/01/20160401-MakePythonWorks-AR-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/04/01/20160401-MakePythonWorks-AR-1/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -308,14 +328,25 @@ ProcessOn，在线的UML绘图工具https://www.processon.com
       
 
       
-        <h1 id="在线工具"><a href="#在线工具" class="headerlink" title="在线工具"></a>在线工具</h1><p>stackedit，在线的markdown编辑器，要是能同步到github就好了<br><a href="https://stackedit.io" target="_blank" rel="external">https://stackedit.io</a></p>
-<p>ProcessOn，在线的UML绘图工具<br><a href="https://www.processon.com" target="_blank" rel="external">https://www.processon.com</a></p>
-<p>道客Cloud，免费的Docker平台，免费的也就只能玩玩儿<br><a href="https://dashboard.daocloud.io/" target="_blank" rel="external">https://dashboard.daocloud.io/</a></p>
-<p>七牛云，在线存储空间<br><a href="https://portal.qiniu.com/create" target="_blank" rel="external">https://portal.qiniu.com/create</a></p>
-<p>开源中国的工具大全<br><a href="http://tool.oschina.net/" target="_blank" rel="external">http://tool.oschina.net/</a></p>
-<blockquote>
-<p>Written with <a href="https://stackedit.io/" target="_blank" rel="external">StackEdit</a>.</p>
-</blockquote>
+        <p>半年前行政同事说需要搞一个考勤管理工具，搞就搞吧，搞成一坨我也没办法。</p>
+<p>希望不要太给测试部门丢人…</p>
+<h1 id="大概思路"><a href="#大概思路" class="headerlink" title="大概思路"></a>大概思路</h1><p>基本上能给到的数据是两个excel表，一个是打卡机出来的数据，一个是员工花名册。<br>输出的东西希望是非常直观的数据，并且可以编辑，可以分发。减少行政同事的工作量。</p>
+<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><ol>
+<li>考勤记录-excel文件</li>
+<li>组织结构-excel文件</li>
+<li>对于由于法定假期和调休导致的考勤异常需要进行条件判断</li>
+</ol>
+<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><ol>
+<li>仍然是excel文件</li>
+</ol>
+<h2 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h2><ol>
+<li>统计每一个人的每一天的考勤时间</li>
+<li>按照行政规定统计每人每月考勤异常次数</li>
+</ol>
+<p>这么一看需求很简单嘛<br>简单画一个图来看看就是：</p>
+<p><img src="http://7xsfv0.com1.z0.glb.clouddn.com/Class%20Diagram.png" alt="class diagram"></p>
+<a id="more"></a>
+<h1 id="读取excel，存储"><a href="#读取excel，存储" class="headerlink" title="读取excel，存储"></a>读取excel，存储</h1><p>第一句写的就是这个<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> xlrd <span class="keyword">import</span> open_workbook</span><br><span class="line"><span class="keyword">import</span> xlrd</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -330,7 +361,7 @@ ProcessOn，在线的UML绘图工具https://www.processon.com
       
         <div class="post-tags">
           
-            <a href="/tags/Tools/" rel="tag">#Tools</a>
+            <a href="/tags/Python/" rel="tag">#Python</a>
           
         </div>
       
@@ -339,16 +370,16 @@ ProcessOn，在线的UML绘图工具https://www.processon.com
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/30/碎碎念/" rel="next" title="碎碎念">
-                <i class="fa fa-chevron-left"></i> 碎碎念
+              <a href="/2016/04/01/20160401-Learning-Go-Note-1/" rel="next" title="边学边记  Go">
+                <i class="fa fa-chevron-left"></i> 边学边记  Go
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/03/31/Script-Test/" rel="prev" title="Script Test">
-                Script Test <i class="fa fa-chevron-right"></i>
+              <a href="/2016/04/05/20160405-伸手传图调外链-七牛withPython/" rel="prev" title="伸手传图调外链 七牛withPython">
+                伸手传图调外链 七牛withPython <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -482,7 +513,7 @@ ProcessOn，在线的UML绘图工具https://www.processon.com
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#在线工具"><span class="nav-number">1.</span> <span class="nav-text">在线工具</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#大概思路"><span class="nav-number">1.</span> <span class="nav-text">大概思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#输入"><span class="nav-number">1.1.</span> <span class="nav-text">输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输出"><span class="nav-number">1.2.</span> <span class="nav-text">输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算"><span class="nav-number">1.3.</span> <span class="nav-text">计算</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#读取excel，存储"><span class="nav-number">2.</span> <span class="nav-text">读取excel，存储</span></a></li></ol></div>
             
           </div>
         </section>
@@ -591,9 +622,9 @@ ProcessOn，在线的UML绘图工具https://www.processon.com
 
     <script type="text/javascript">
       var disqus_shortname = 'evinoca';
-      var disqus_identifier = '2016/03/31/非常俗套的常用工具/';
-      var disqus_title = '非常俗套的常用工具';
-      var disqus_url = 'http://evinoca.github.io/2016/03/31/非常俗套的常用工具/';
+      var disqus_identifier = '2016/04/01/20160401-MakePythonWorks-AR-1/';
+      var disqus_title = '考勤时间统计 with Python （1）';
+      var disqus_url = 'http://evinoca.github.io/2016/04/01/20160401-MakePythonWorks-AR-1/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');

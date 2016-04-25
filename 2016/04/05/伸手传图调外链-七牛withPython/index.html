@@ -1,0 +1,705 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python,自娱自乐,七牛,Win32Api,PIL," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="懒人创造世界嘛上传图片到图床再找外链太累人了，还是写一个脚本吧
+之前看mac上是有大神写了脚本的，直接检查剪贴板是否有图片，如果有就调用七牛的SDK上传到对应的个人存储空间里，并返回外链地址存在剪贴板，听上去非常地美好。
+七牛的API之前看到是有支持Python的SDK的，那还不是信手拈来吗，嘿嘿嘿
+初步构思：
+调用Win32Api检查剪贴板是否有图片
+调用SDK上传
+记录返回外链
+调用Win32">
+<meta property="og:type" content="article">
+<meta property="og:title" content="伸手传图调外链 七牛withPython">
+<meta property="og:url" content="http://evinoca.github.io/2016/04/05/伸手传图调外链-七牛withPython/index.html">
+<meta property="og:site_name" content="Audric's Precious Toy Box">
+<meta property="og:description" content="懒人创造世界嘛上传图片到图床再找外链太累人了，还是写一个脚本吧
+之前看mac上是有大神写了脚本的，直接检查剪贴板是否有图片，如果有就调用七牛的SDK上传到对应的个人存储空间里，并返回外链地址存在剪贴板，听上去非常地美好。
+七牛的API之前看到是有支持Python的SDK的，那还不是信手拈来吗，嘿嘿嘿
+初步构思：
+调用Win32Api检查剪贴板是否有图片
+调用SDK上传
+记录返回外链
+调用Win32">
+<meta property="og:updated_time" content="2016-04-05T07:44:48.009Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="伸手传图调外链 七牛withPython">
+<meta name="twitter:description" content="懒人创造世界嘛上传图片到图床再找外链太累人了，还是写一个脚本吧
+之前看mac上是有大神写了脚本的，直接检查剪贴板是否有图片，如果有就调用七牛的SDK上传到对应的个人存储空间里，并返回外链地址存在剪贴板，听上去非常地美好。
+七牛的API之前看到是有支持Python的SDK的，那还不是信手拈来吗，嘿嘿嘿
+初步构思：
+调用Win32Api检查剪贴板是否有图片
+调用SDK上传
+记录返回外链
+调用Win32">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 伸手传图调外链 七牛withPython | Audric's Precious Toy Box </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?625dfa09271d60f4da0f01277bee349e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Audric's Precious Toy Box</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">点滴记忆汇集成生活</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                伸手传图调外链 七牛withPython
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-05T15:44:47+08:00" content="2016-04-05">
+              2016-04-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/05/伸手传图调外链-七牛withPython/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/04/05/伸手传图调外链-七牛withPython/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>懒人创造世界嘛<br>上传图片到图床再找外链太累人了，还是写一个脚本吧</p>
+<p>之前看mac上是有大神写了脚本的，直接检查剪贴板是否有图片，如果有就调用七牛的SDK上传到对应的个人存储空间里，并返回外链地址存在剪贴板，听上去非常地美好。</p>
+<p>七牛的API之前看到是有支持Python的SDK的，那还不是信手拈来吗，嘿嘿嘿</p>
+<h1 id="初步构思："><a href="#初步构思：" class="headerlink" title="初步构思："></a>初步构思：</h1><ol>
+<li>调用Win32Api检查剪贴板是否有图片</li>
+<li>调用SDK上传</li>
+<li>记录返回外链</li>
+<li>调用Win32Api保存外链地址到剪贴板，最好就是Markdown格式的</li>
+</ol>
+<h1 id="可能遇到的困难"><a href="#可能遇到的困难" class="headerlink" title="可能遇到的困难"></a>可能遇到的困难</h1><ol>
+<li>Win32Api并没有接触过剪贴板什么的，不行也可以用上传文件的方式来work around</li>
+<li>得装一个winHotKey还是什么的来触发脚本</li>
+</ol>
+<p>有问题没啥，一个一个来解决嘛，先来试试再说。</p>
+<a id="more"></a>
+<h1 id="七牛Python-SDK安装"><a href="#七牛Python-SDK安装" class="headerlink" title="七牛Python SDK安装"></a>七牛Python SDK安装</h1><p>直接安装:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install qiniu</span><br><span class="line">或</span><br><span class="line">easy_install qiniu</span><br></pre></td></tr></table></figure>
+<p>源码安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从Python SDK 下载地址下载源码</span></span><br><span class="line">tar xvzf python-sdk-<span class="variable">$VERSION</span>.tar.gz</span><br><span class="line"><span class="built_in">cd</span> python-sdk-<span class="variable">$VERSION</span></span><br><span class="line">python setup.py install</span><br></pre></td></tr></table></figure>
+<p>初始化</p>
+<p>在使用SDK 前，您需要一对有效的 AccessKey 和 SecretKey 签名授权。</p>
+<p>可以通过如下步骤获得：</p>
+<pre><code>开通七牛开发者帐号
+登录七牛开发者平台，查看 Access Key 和 Secret Key。
+</code></pre><p>获取Access Key 和 Secret Key 后，调用如下两行代码进行初始化对接：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> qiniu <span class="keyword">import</span> Auth</span><br><span class="line"></span><br><span class="line">q = Auth(access_key, secret_key)</span><br></pre></td></tr></table></figure>
+<h2 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h2><p>上传流程</p>
+<p>为了尽可能地改善终端用户的上传体验，七牛云存储首创了客户端直传功能。更多信息请参阅业务流程。</p>
+<p>上传代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># flake8: noqa</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> qiniu <span class="keyword">import</span> Auth, put_file, etag, urlsafe_base64_encode</span><br><span class="line"><span class="keyword">import</span> qiniu.config</span><br><span class="line"></span><br><span class="line"><span class="comment">#需要填写你的 Access Key 和 Secret Key</span></span><br><span class="line">access_key = <span class="string">'Access_Key'</span></span><br><span class="line">secret_key = <span class="string">'Secret_Key'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#构建鉴权对象</span></span><br><span class="line">q = Auth(access_key, secret_key)</span><br><span class="line"></span><br><span class="line"><span class="comment">#要上传的空间</span></span><br><span class="line">bucket_name = <span class="string">'Bucket_Name'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#上传到七牛后保存的文件名</span></span><br><span class="line">key = <span class="string">'my-python-logo.png'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成上传 Token，可以指定过期时间等</span></span><br><span class="line">token = q.upload_token(bucket_name, key, <span class="number">3600</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#要上传文件的本地路径</span></span><br><span class="line">localfile = <span class="string">'./sync/bbb.jpg'</span></span><br><span class="line"></span><br><span class="line">ret, info = put_file(token, key, localfile)</span><br><span class="line">print(info)</span><br><span class="line"><span class="keyword">assert</span> ret[<span class="string">'key'</span>] == key</span><br><span class="line"><span class="keyword">assert</span> ret[<span class="string">'hash'</span>] == etag(localfile)</span><br></pre></td></tr></table></figure></p>
+<p>后面还有几个高级接口，这回应该是用不到的。<br>不用的就不看了，省的头晕…</p>
+<hr>
+<p>本来还以为会有一个接口来使用文件token来查找外链地址</p>
+<h1 id="获取剪贴板图片数据"><a href="#获取剪贴板图片数据" class="headerlink" title="获取剪贴板图片数据"></a>获取剪贴板图片数据</h1><p>然后找到了一个大神做的脚本，获取win32api剪贴板内容并保存图片到本地，来自<a href="http://www.cnblogs.com/xieqiankun/p/usePythonForScreenShot.html" target="_blank" rel="external"> 使用Python保存屏幕截图 </a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ctypes</span><br><span class="line"><span class="keyword">from</span> ctypes.wintypes <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> win32clipboard</span><br><span class="line"><span class="keyword">from</span> win32con <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BITMAPFILEHEADER</span><span class="params">(ctypes.Structure)</span>:</span></span><br><span class="line">    _pack_ = <span class="number">1</span>  <span class="comment"># structure field byte alignment</span></span><br><span class="line">    _fields_ = [</span><br><span class="line">        (<span class="string">'bfType'</span>, WORD),  <span class="comment"># file type ("BM")</span></span><br><span class="line">        (<span class="string">'bfSize'</span>, DWORD),  <span class="comment"># file size in bytes</span></span><br><span class="line">        (<span class="string">'bfReserved1'</span>, WORD),  <span class="comment"># must be zero</span></span><br><span class="line">        (<span class="string">'bfReserved2'</span>, WORD),  <span class="comment"># must be zero</span></span><br><span class="line">        (<span class="string">'bfOffBits'</span>, DWORD),  <span class="comment"># byte offset to the pixel array</span></span><br><span class="line">    ]</span><br><span class="line">SIZEOF_BITMAPFILEHEADER = ctypes.sizeof(BITMAPFILEHEADER)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BITMAPINFOHEADER</span><span class="params">(ctypes.Structure)</span>:</span></span><br><span class="line">    _pack_ = <span class="number">1</span>  <span class="comment"># structure field byte alignment</span></span><br><span class="line">    _fields_ = [</span><br><span class="line">        (<span class="string">'biSize'</span>, DWORD),</span><br><span class="line">        (<span class="string">'biWidth'</span>, LONG),</span><br><span class="line">        (<span class="string">'biHeight'</span>, LONG),</span><br><span class="line">        (<span class="string">'biPLanes'</span>, WORD),</span><br><span class="line">        (<span class="string">'biBitCount'</span>, WORD),</span><br><span class="line">        (<span class="string">'biCompression'</span>, DWORD),</span><br><span class="line">        (<span class="string">'biSizeImage'</span>, DWORD),</span><br><span class="line">        (<span class="string">'biXPelsPerMeter'</span>, LONG),</span><br><span class="line">        (<span class="string">'biYPelsPerMeter'</span>, LONG),</span><br><span class="line">        (<span class="string">'biClrUsed'</span>, DWORD),</span><br><span class="line">        (<span class="string">'biClrImportant'</span>, DWORD)</span><br><span class="line">    ]</span><br><span class="line">SIZEOF_BITMAPINFOHEADER = ctypes.sizeof(BITMAPINFOHEADER)</span><br><span class="line"></span><br><span class="line">win32clipboard.OpenClipboard()</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">if</span> win32clipboard.IsClipboardFormatAvailable(win32clipboard.CF_DIB):</span><br><span class="line">        data = win32clipboard.GetClipboardData(win32clipboard.CF_DIB)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">'clipboard does not contain an image in DIB format'</span>)</span><br><span class="line">        sys.exit(<span class="number">1</span>)</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    win32clipboard.CloseClipboard()</span><br><span class="line"></span><br><span class="line">bmih = BITMAPINFOHEADER()</span><br><span class="line">ctypes.memmove(ctypes.pointer(bmih), data, SIZEOF_BITMAPINFOHEADER)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> bmih.biCompression != BI_BITFIELDS:  <span class="comment"># RGBA?</span></span><br><span class="line">    print(<span class="string">'insupported compression type &#123;&#125;'</span>.format(bmih.biCompression))</span><br><span class="line">    sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">bmfh = BITMAPFILEHEADER()</span><br><span class="line">ctypes.memset(ctypes.pointer(bmfh), <span class="number">0</span>, SIZEOF_BITMAPFILEHEADER)  <span class="comment"># zero structure</span></span><br><span class="line">bmfh.bfType = ord(<span class="string">'B'</span>) | (ord(<span class="string">'M'</span>) &lt;&lt; <span class="number">8</span>)</span><br><span class="line">bmfh.bfSize = SIZEOF_BITMAPFILEHEADER + len(data)  <span class="comment"># file size</span></span><br><span class="line">SIZEOF_COLORTABLE = <span class="number">0</span></span><br><span class="line">bmfh.bfOffBits = SIZEOF_BITMAPFILEHEADER + SIZEOF_BITMAPINFOHEADER + SIZEOF_COLORTABLE</span><br><span class="line"></span><br><span class="line">bmp_filename = <span class="string">'clipboard.bmp'</span></span><br><span class="line"><span class="keyword">with</span> open(bmp_filename, <span class="string">'wb'</span>) <span class="keyword">as</span> bmp_file:</span><br><span class="line">    bmp_file.write(bmfh)</span><br><span class="line">    bmp_file.write(data)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'file "&#123;&#125;" created from clipboard image'</span>.format(bmp_filename))</span><br></pre></td></tr></table></figure>
+<p>本地跑了一下，确实好用的很</p>
+<p>那就用这俩东东调整一下好了，第一件事儿是给文件命名，两个范例都是用的写死的名称，为了能快速上传文件，随机数我打算使用到ms的随机数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line">timeS= datetime.datetime.now().strftime(<span class="string">'%Y%m%d_%H%M%S_%f'</span>)</span><br><span class="line">fileName = <span class="string">'clipboard_tmp_'</span>+str(timeS)+<span class="string">'.bmp'</span></span><br><span class="line"><span class="keyword">print</span> fileName</span><br><span class="line"></span><br><span class="line"><span class="comment">#output</span></span><br><span class="line"><span class="comment">#clipboard_tmp_20160401_192159_471000.bmp</span></span><br></pre></td></tr></table></figure>
+<p>复杂的不见得会，这个还是很熟练的…</p>
+<p>那就果断先把他们拼起来，<br>基本上就是这个样儿</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> ctypes</span><br><span class="line"><span class="keyword">from</span> ctypes.wintypes <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> win32clipboard</span><br><span class="line"><span class="keyword">from</span> win32con <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> qiniu <span class="keyword">import</span> Auth, put_file, etag, urlsafe_base64_encode</span><br><span class="line"><span class="keyword">import</span> qiniu.config</span><br><span class="line"></span><br><span class="line"><span class="comment">#需要填写你的 Access Key 和 Secret Key</span></span><br><span class="line">access_key = <span class="string">'七牛提供的AccessKey'</span></span><br><span class="line">secret_key = <span class="string">'七牛给的秘钥'</span></span><br><span class="line">temp_url_Base = <span class="string">'七牛给的外链基地址'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#构建鉴权对象</span></span><br><span class="line">q = Auth(access_key, secret_key)</span><br><span class="line"></span><br><span class="line"><span class="comment">#要上传的空间</span></span><br><span class="line">bucket_name = <span class="string">'evinoca'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getFileName</span><span class="params">()</span>:</span></span><br><span class="line">    timeS= datetime.datetime.now().strftime(<span class="string">'%Y%m%d_%H%M%S_%f'</span>)</span><br><span class="line">    fileName = <span class="string">'clipboard_tmp_'</span>+str(timeS)+<span class="string">'.bmp'</span></span><br><span class="line">    <span class="keyword">return</span> fileName</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BITMAPFILEHEADER</span><span class="params">(ctypes.Structure)</span>:</span></span><br><span class="line">    _pack_ = <span class="number">1</span>  <span class="comment"># structure field byte alignment</span></span><br><span class="line">    _fields_ = [</span><br><span class="line">        (<span class="string">'bfType'</span>, WORD),  <span class="comment"># file type ("BM")</span></span><br><span class="line">        (<span class="string">'bfSize'</span>, DWORD),  <span class="comment"># file size in bytes</span></span><br><span class="line">        (<span class="string">'bfReserved1'</span>, WORD),  <span class="comment"># must be zero</span></span><br><span class="line">        (<span class="string">'bfReserved2'</span>, WORD),  <span class="comment"># must be zero</span></span><br><span class="line">        (<span class="string">'bfOffBits'</span>, DWORD),  <span class="comment"># byte offset to the pixel array</span></span><br><span class="line">    ]</span><br><span class="line">SIZEOF_BITMAPFILEHEADER = ctypes.sizeof(BITMAPFILEHEADER)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BITMAPINFOHEADER</span><span class="params">(ctypes.Structure)</span>:</span></span><br><span class="line">    _pack_ = <span class="number">1</span>  <span class="comment"># structure field byte alignment</span></span><br><span class="line">    _fields_ = [</span><br><span class="line">        (<span class="string">'biSize'</span>, DWORD),</span><br><span class="line">        (<span class="string">'biWidth'</span>, LONG),</span><br><span class="line">        (<span class="string">'biHeight'</span>, LONG),</span><br><span class="line">        (<span class="string">'biPLanes'</span>, WORD),</span><br><span class="line">        (<span class="string">'biBitCount'</span>, WORD),</span><br><span class="line">        (<span class="string">'biCompression'</span>, DWORD),</span><br><span class="line">        (<span class="string">'biSizeImage'</span>, DWORD),</span><br><span class="line">        (<span class="string">'biXPelsPerMeter'</span>, LONG),</span><br><span class="line">        (<span class="string">'biYPelsPerMeter'</span>, LONG),</span><br><span class="line">        (<span class="string">'biClrUsed'</span>, DWORD),</span><br><span class="line">        (<span class="string">'biClrImportant'</span>, DWORD)</span><br><span class="line">    ]</span><br><span class="line">SIZEOF_BITMAPINFOHEADER = ctypes.sizeof(BITMAPINFOHEADER)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getClipboardAndSave</span><span class="params">()</span>:</span></span><br><span class="line">    win32clipboard.OpenClipboard()</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">if</span> win32clipboard.IsClipboardFormatAvailable(win32clipboard.CF_DIB):</span><br><span class="line">            data = win32clipboard.GetClipboardData(win32clipboard.CF_DIB)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(<span class="string">'clipboard does not contain an image in DIB format'</span>)</span><br><span class="line">            sys.exit(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        win32clipboard.CloseClipboard()</span><br><span class="line"></span><br><span class="line">    bmih = BITMAPINFOHEADER()</span><br><span class="line">    ctypes.memmove(ctypes.pointer(bmih), data, SIZEOF_BITMAPINFOHEADER)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> bmih.biCompression != BI_BITFIELDS:  <span class="comment"># RGBA?</span></span><br><span class="line">        print(<span class="string">'insupported compression type &#123;&#125;'</span>.format(bmih.biCompression))</span><br><span class="line">        sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    bmfh = BITMAPFILEHEADER()</span><br><span class="line">    ctypes.memset(ctypes.pointer(bmfh), <span class="number">0</span>, SIZEOF_BITMAPFILEHEADER)  <span class="comment"># zero structure</span></span><br><span class="line">    bmfh.bfType = ord(<span class="string">'B'</span>) | (ord(<span class="string">'M'</span>) &lt;&lt; <span class="number">8</span>)</span><br><span class="line">    bmfh.bfSize = SIZEOF_BITMAPFILEHEADER + len(data)  <span class="comment"># file size</span></span><br><span class="line">    SIZEOF_COLORTABLE = <span class="number">0</span></span><br><span class="line">    bmfh.bfOffBits = SIZEOF_BITMAPFILEHEADER + SIZEOF_BITMAPINFOHEADER + SIZEOF_COLORTABLE</span><br><span class="line"></span><br><span class="line">    bmp_filename = getFileName()</span><br><span class="line">    <span class="keyword">with</span> open(bmp_filename, <span class="string">'wb'</span>) <span class="keyword">as</span> bmp_file:</span><br><span class="line">        bmp_file.write(bmfh)</span><br><span class="line">        bmp_file.write(data)</span><br><span class="line">    print(<span class="string">'file "&#123;&#125;" created from clipboard image'</span>.format(bmp_filename))</span><br><span class="line">    <span class="keyword">return</span> bmp_filename</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">upload</span><span class="params">(fileName)</span>:</span></span><br><span class="line">    <span class="comment">#上传到七牛后保存的文件名</span></span><br><span class="line">    key = fileName;</span><br><span class="line">    <span class="comment">#生成上传 Token，可以指定过期时间等</span></span><br><span class="line">    token = q.upload_token(bucket_name, key, <span class="number">3600</span>)</span><br><span class="line">    <span class="comment">#要上传文件的本地路径</span></span><br><span class="line">    localfile = <span class="string">'C:\Users\Administrator\Desktop'</span>+<span class="string">'\\'</span>+fileName</span><br><span class="line">    ret, info = put_file(token, key, localfile)</span><br><span class="line">    print(info)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    upload(getClipboardAndSave())</span><br></pre></td></tr></table></figure>
+<p>把几个现成的东西一拼就完了，不过跑了一下发现Bmp文件格式实在是太大了，在现在的显示器动不动就是2k 27寸的情况下，我俩显示器一个完整截图将近10MB，上传占用的时间让人感动<br>所以必须要再转换一下文件格式，再生成一个markdown的外链字符串就完事儿了，嘿嘿</p>
+<hr>
+<h1 id="格式转换"><a href="#格式转换" class="headerlink" title="格式转换"></a>格式转换</h1><p>本来觉得这个不应该是小菜吗，直接用PIL库就行了<br>特别简单</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Image</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">convertBmp2Png</span><span class="params">(bmpFilename,pngFilename)</span>:</span></span><br><span class="line">    Image.open(bmpFilename).save(pngFilename)</span><br><span class="line">    <span class="keyword">return</span> pngFilename</span><br></pre></td></tr></table></figure>
+<p>就是把图片打开，另存为，简单粗暴</p>
+<p>一直抛异常</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"C:\Users\Administrator\Desktop\getRandomTimeStamp.py"</span>, line <span class="number">108</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    upload(getClipboardAndSave())</span><br><span class="line">  File <span class="string">"C:\Users\Administrator\Desktop\getRandomTimeStamp.py"</span>, line <span class="number">93</span>, <span class="keyword">in</span> getClipboardAndSave</span><br><span class="line">    convertBmp2Png(bmp_filename,png_filename)</span><br><span class="line">  File <span class="string">"C:\Users\Administrator\Desktop\getRandomTimeStamp.py"</span>, line <span class="number">30</span>, <span class="keyword">in</span> convertBmp2Png</span><br><span class="line">    Image.open(bmpFilename).save(pngFilename)</span><br><span class="line">  File <span class="string">"C:\Python27\lib\site-packages\PIL\Image.py"</span>, line <span class="number">1439</span>, <span class="keyword">in</span> save</span><br><span class="line">    save_handler(self, fp, filename)</span><br><span class="line">  File <span class="string">"C:\Python27\lib\site-packages\PIL\JpegImagePlugin.py"</span>, line <span class="number">471</span>, <span class="keyword">in</span> _save</span><br><span class="line">    ImageFile._save(im, fp, [(<span class="string">"jpeg"</span>, (<span class="number">0</span>,<span class="number">0</span>)+im.size, <span class="number">0</span>, rawmode)])</span><br><span class="line">  File <span class="string">"C:\Python27\lib\site-packages\PIL\ImageFile.py"</span>, line <span class="number">494</span>, <span class="keyword">in</span> _save</span><br><span class="line">    <span class="keyword">for</span> e, b, o, a <span class="keyword">in</span> tile:</span><br><span class="line">ValueError: Not a valid numbers of quantization tables. Should be between <span class="number">2</span> <span class="keyword">and</span> <span class="number">4.</span></span><br></pre></td></tr></table></figure>
+<p>折腾了半天也没搞明白，直到看到这个兄弟的代码<br><a href="http://www.programlife.net/wxpython-image-converter.html" target="_blank" rel="external">wxPython写的图片格式转换工具ImageConverter</a><br>怎么看怎么都跟我找的资料写的一样，试着跑了一下发现except都抛的一模一样的</p>
+<p>但是！</p>
+<p>桌面上出现了jpg文件啊，什么鬼</p>
+<hr>
+<p>仔细一看我自己写的那个也有文件输出…<br>那么以结果优先的话，就让它抛着玩儿吧，反正不花钱<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Image</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">convertBmp2Png</span><span class="params">(bmpFilename,pngFilename)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        Image.open(bmpFilename).save(pngFilename)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="keyword">return</span> pngFilename</span><br></pre></td></tr></table></figure></p>
+<p>就这么着了！</p>
+<h1 id="写剪贴板"><a href="#写剪贴板" class="headerlink" title="写剪贴板"></a>写剪贴板</h1><p>之前已经用过剪贴板的库win32clipboard，这个按理说也很简单对吧<br>网上的说法一致都是与<a href="http://blog.log4d.com/2010/10/python-clipboard/" target="_blank" rel="external">Python读写剪贴板 </a>一样一样的<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> win32clipboard</span><br><span class="line"><span class="keyword">from</span> win32con <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">w.OpenClipboard()</span><br><span class="line">d = w.GetClipboardData(win32con.CF_TEXT)</span><br><span class="line">w.CloseClipboard()</span><br><span class="line"><span class="keyword">print</span> d</span><br><span class="line"></span><br><span class="line">w.OpenClipboard()</span><br><span class="line">w.EmptyClipboard()</span><br><span class="line">w.SetClipboardData(win32con.CF_TEXT, aString)</span><br><span class="line">w.CloseClipboard()</span><br></pre></td></tr></table></figure></p>
+<p>偏偏在我这儿不好用，系统剪贴板都乱套了</p>
+<p>最后选择用了更偷懒的办法，</p>
+<blockquote>
+<p>clipboard 0.0.4</p>
+<p>A cross platform clipboard operation library of Python. Works for Windows, Mac and Linux.<br>Well, as I was trying to implement this, I realize that everything is included in pyperclip already: <a href="https://pypi.python.org/pypi/pyperclip/" target="_blank" rel="external">https://pypi.python.org/pypi/pyperclip/</a><br>But anyway, clipboard is a better name. You are free to choose:-) I might add more features to it.<br>Usage:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import clipboard</span><br><span class="line">clipboard.copy(&quot;abc&quot;)  # now the clipboard content will be string &quot;abc&quot;</span><br><span class="line">text = clipboard.paste()  # text will have the content of clipboard</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>平易近人得都要哭了</p>
+<h1 id="组装到一起"><a href="#组装到一起" class="headerlink" title="组装到一起"></a>组装到一起</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> ctypes</span><br><span class="line"><span class="keyword">from</span> ctypes.wintypes <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> win32clipboard</span><br><span class="line"><span class="keyword">from</span> win32con <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> qiniu <span class="keyword">import</span> Auth, put_file, etag, urlsafe_base64_encode</span><br><span class="line"><span class="keyword">import</span> qiniu.config</span><br><span class="line"><span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">import</span> win32clipboard <span class="keyword">as</span> w </span><br><span class="line"><span class="keyword">import</span> win32con</span><br><span class="line"><span class="keyword">import</span> clipboard</span><br><span class="line"></span><br><span class="line"><span class="comment">#需要填写你的 Access Key 和 Secret Key</span></span><br><span class="line">access_key = <span class="string">'七牛给的access_key'</span></span><br><span class="line">secret_key = <span class="string">'七牛给的secret_key'</span></span><br><span class="line">temp_url_Base = <span class="string">'七牛给的temp_url_Base'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#构建鉴权对象</span></span><br><span class="line">q = Auth(access_key, secret_key)</span><br><span class="line"></span><br><span class="line"><span class="comment">#要上传的空间</span></span><br><span class="line">bucket_name = <span class="string">'evinoca'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getFileName</span><span class="params">()</span>:</span></span><br><span class="line">    timeS= datetime.datetime.now().strftime(<span class="string">'%Y%m%d_%H%M%S_%f'</span>)</span><br><span class="line">    fileName = <span class="string">'clipboard_tmp_'</span>+str(timeS)</span><br><span class="line">    <span class="keyword">return</span> fileName</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">convertBmp2Png</span><span class="params">(bmpFilename,pngFilename)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        Image.open(bmpFilename).save(pngFilename)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="keyword">return</span> pngFilename</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BITMAPFILEHEADER</span><span class="params">(ctypes.Structure)</span>:</span></span><br><span class="line">    _pack_ = <span class="number">1</span>  <span class="comment"># structure field byte alignment</span></span><br><span class="line">    _fields_ = [</span><br><span class="line">        (<span class="string">'bfType'</span>, WORD),  <span class="comment"># file type ("BM")</span></span><br><span class="line">        (<span class="string">'bfSize'</span>, DWORD),  <span class="comment"># file size in bytes</span></span><br><span class="line">        (<span class="string">'bfReserved1'</span>, WORD),  <span class="comment"># must be zero</span></span><br><span class="line">        (<span class="string">'bfReserved2'</span>, WORD),  <span class="comment"># must be zero</span></span><br><span class="line">        (<span class="string">'bfOffBits'</span>, DWORD),  <span class="comment"># byte offset to the pixel array</span></span><br><span class="line">    ]</span><br><span class="line">SIZEOF_BITMAPFILEHEADER = ctypes.sizeof(BITMAPFILEHEADER)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BITMAPINFOHEADER</span><span class="params">(ctypes.Structure)</span>:</span></span><br><span class="line">    _pack_ = <span class="number">1</span>  <span class="comment"># structure field byte alignment</span></span><br><span class="line">    _fields_ = [</span><br><span class="line">        (<span class="string">'biSize'</span>, DWORD),</span><br><span class="line">        (<span class="string">'biWidth'</span>, LONG),</span><br><span class="line">        (<span class="string">'biHeight'</span>, LONG),</span><br><span class="line">        (<span class="string">'biPLanes'</span>, WORD),</span><br><span class="line">        (<span class="string">'biBitCount'</span>, WORD),</span><br><span class="line">        (<span class="string">'biCompression'</span>, DWORD),</span><br><span class="line">        (<span class="string">'biSizeImage'</span>, DWORD),</span><br><span class="line">        (<span class="string">'biXPelsPerMeter'</span>, LONG),</span><br><span class="line">        (<span class="string">'biYPelsPerMeter'</span>, LONG),</span><br><span class="line">        (<span class="string">'biClrUsed'</span>, DWORD),</span><br><span class="line">        (<span class="string">'biClrImportant'</span>, DWORD)</span><br><span class="line">    ]</span><br><span class="line">SIZEOF_BITMAPINFOHEADER = ctypes.sizeof(BITMAPINFOHEADER)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getClipboardAndSave</span><span class="params">()</span>:</span></span><br><span class="line">    win32clipboard.OpenClipboard()</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">if</span> win32clipboard.IsClipboardFormatAvailable(win32clipboard.CF_DIB):</span><br><span class="line">            data = win32clipboard.GetClipboardData(win32clipboard.CF_DIB)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(<span class="string">'clipboard does not contain an image in DIB format'</span>)</span><br><span class="line">            sys.exit(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        win32clipboard.CloseClipboard()</span><br><span class="line"></span><br><span class="line">    bmih = BITMAPINFOHEADER()</span><br><span class="line">    ctypes.memmove(ctypes.pointer(bmih), data, SIZEOF_BITMAPINFOHEADER)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> bmih.biCompression != BI_BITFIELDS:  <span class="comment"># RGBA?</span></span><br><span class="line">        print(<span class="string">'insupported compression type &#123;&#125;'</span>.format(bmih.biCompression))</span><br><span class="line">        sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    bmfh = BITMAPFILEHEADER()</span><br><span class="line">    ctypes.memset(ctypes.pointer(bmfh), <span class="number">0</span>, SIZEOF_BITMAPFILEHEADER)  <span class="comment"># zero structure</span></span><br><span class="line">    bmfh.bfType = ord(<span class="string">'B'</span>) | (ord(<span class="string">'M'</span>) &lt;&lt; <span class="number">8</span>)</span><br><span class="line">    bmfh.bfSize = SIZEOF_BITMAPFILEHEADER + len(data)  <span class="comment"># file size</span></span><br><span class="line">    SIZEOF_COLORTABLE = <span class="number">0</span></span><br><span class="line">    bmfh.bfOffBits = SIZEOF_BITMAPFILEHEADER + SIZEOF_BITMAPINFOHEADER + SIZEOF_COLORTABLE</span><br><span class="line"></span><br><span class="line">    baseName= getFileName()</span><br><span class="line">    bmp_filename = baseName+<span class="string">".bmp"</span></span><br><span class="line">    png_filename = baseName+<span class="string">".jpg"</span></span><br><span class="line">    <span class="keyword">with</span> open(bmp_filename, <span class="string">'wb'</span>) <span class="keyword">as</span> bmp_file:</span><br><span class="line">        bmp_file.write(bmfh)</span><br><span class="line">        bmp_file.write(data)</span><br><span class="line">    print(<span class="string">'file "&#123;&#125;" created from clipboard image'</span>.format(bmp_filename))</span><br><span class="line">    convertBmp2Png(bmp_filename,png_filename)</span><br><span class="line">    <span class="keyword">return</span> png_filename</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">upload</span><span class="params">(fileName)</span>:</span></span><br><span class="line">    <span class="comment">#上传到七牛后保存的文件名</span></span><br><span class="line">    key = fileName;</span><br><span class="line">    <span class="comment">#生成上传 Token，可以指定过期时间等</span></span><br><span class="line">    token = q.upload_token(bucket_name, key, <span class="number">3600</span>)</span><br><span class="line">    <span class="comment">#要上传文件的本地路径，我的脚本目前就放在桌面上，所以索引路径仍然是写死的</span></span><br><span class="line">    localfile = <span class="string">'C:\Users\Administrator\Desktop'</span>+<span class="string">'\\'</span>+fileName</span><br><span class="line">    ret, info = put_file(token, key, localfile)</span><br><span class="line">    print(info)        </span><br><span class="line">    <span class="keyword">return</span> temp_url_Base+<span class="string">'//'</span>+fileName</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    clipboard.copy(upload(getClipboardAndSave()))</span><br></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>在windows环境下，只要剪贴板里面有图片数据，运行脚本就可以一键式上传到图床上，并把地址扔到剪贴板里。<br>虽然简陋了点，但是能用就行，后面再优化呗</p>
+<ol>
+<li>写Python脚本真的跟搬砖没两样</li>
+<li>要善用Pypi的库</li>
+<li>写博客第二天看就觉的对不起语文老师</li>
+</ol>
+<p>我写的第一篇技术随笔就这么愉快的结束了</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag">#Python</a>
+          
+            <a href="/tags/自娱自乐/" rel="tag">#自娱自乐</a>
+          
+            <a href="/tags/七牛/" rel="tag">#七牛</a>
+          
+            <a href="/tags/Win32Api/" rel="tag">#Win32Api</a>
+          
+            <a href="/tags/PIL/" rel="tag">#PIL</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/01/MakePythonWorks-AR-1/" rel="next" title="考勤时间统计 with Python （1）">
+                <i class="fa fa-chevron-left"></i> 考勤时间统计 with Python （1）
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/05/20160405-How-To-Write-A-Test-Strategy/" rel="prev" title="测试策略书写大纲">
+                测试策略书写大纲 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="Audric" />
+          <p class="site-author-name" itemprop="name">Audric</p>
+          <p class="site-description motion-element" itemprop="description">Nothing Serious</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/evinoca" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#初步构思："><span class="nav-number">1.</span> <span class="nav-text">初步构思：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#可能遇到的困难"><span class="nav-number">2.</span> <span class="nav-text">可能遇到的困难</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#七牛Python-SDK安装"><span class="nav-number">3.</span> <span class="nav-text">七牛Python SDK安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件上传"><span class="nav-number">3.1.</span> <span class="nav-text">文件上传</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获取剪贴板图片数据"><span class="nav-number">4.</span> <span class="nav-text">获取剪贴板图片数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#格式转换"><span class="nav-number">5.</span> <span class="nav-text">格式转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写剪贴板"><span class="nav-number">6.</span> <span class="nav-text">写剪贴板</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组装到一起"><span class="nav-number">7.</span> <span class="nav-text">组装到一起</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Audric</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/vendors/jquery-scrollintoview/jquery.scrollintoview.min.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'evinoca';
+      var disqus_identifier = '2016/04/05/伸手传图调外链-七牛withPython/';
+      var disqus_title = '伸手传图调外链 七牛withPython';
+      var disqus_url = 'http://evinoca.github.io/2016/04/05/伸手传图调外链-七牛withPython/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

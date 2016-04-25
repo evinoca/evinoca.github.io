@@ -1,0 +1,668 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Perl,自娱自乐," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="背景有一阵公司特别忙，管理层对于我们这些基层人员的工作进度非常的上心。但是公司实在太小，连OA系统都没有配置，也没有项目管理协同办公的工具。
+全程靠吼和qq，真是low爆了…
+这说了，没个人都要写日报，每天汇总到一起来发项目组日报。汇总方案如下：
+
+发邮件，专人汇总
+在svn上面写一个记事本，谁写谁checkout，写完再update
+…没了
+
+我心说这都什么主意啊…一个组里有20多口子人，这要是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单问题简单处理-Perl来汇总零散的Txt文件">
+<meta property="og:url" content="http://evinoca.github.io/2016/04/14/20160414-Collect-Shabby-Daily-Reports-over-SVN-with-Perl/index.html">
+<meta property="og:site_name" content="Audric's Precious Toy Box">
+<meta property="og:description" content="背景有一阵公司特别忙，管理层对于我们这些基层人员的工作进度非常的上心。但是公司实在太小，连OA系统都没有配置，也没有项目管理协同办公的工具。
+全程靠吼和qq，真是low爆了…
+这说了，没个人都要写日报，每天汇总到一起来发项目组日报。汇总方案如下：
+
+发邮件，专人汇总
+在svn上面写一个记事本，谁写谁checkout，写完再update
+…没了
+
+我心说这都什么主意啊…一个组里有20多口子人，这要是">
+<meta property="og:updated_time" content="2016-04-15T07:06:06.092Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="简单问题简单处理-Perl来汇总零散的Txt文件">
+<meta name="twitter:description" content="背景有一阵公司特别忙，管理层对于我们这些基层人员的工作进度非常的上心。但是公司实在太小，连OA系统都没有配置，也没有项目管理协同办公的工具。
+全程靠吼和qq，真是low爆了…
+这说了，没个人都要写日报，每天汇总到一起来发项目组日报。汇总方案如下：
+
+发邮件，专人汇总
+在svn上面写一个记事本，谁写谁checkout，写完再update
+…没了
+
+我心说这都什么主意啊…一个组里有20多口子人，这要是">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 简单问题简单处理-Perl来汇总零散的Txt文件 | Audric's Precious Toy Box </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?625dfa09271d60f4da0f01277bee349e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Audric's Precious Toy Box</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">点滴记忆汇集成生活</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                简单问题简单处理-Perl来汇总零散的Txt文件
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-14T19:03:48+08:00" content="2016-04-14">
+              2016-04-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Perl/" itemprop="url" rel="index">
+                    <span itemprop="name">Perl</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/14/20160414-Collect-Shabby-Daily-Reports-over-SVN-with-Perl/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/04/14/20160414-Collect-Shabby-Daily-Reports-over-SVN-with-Perl/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>有一阵公司特别忙，管理层对于我们这些基层人员的工作进度非常的上心。<br>但是公司实在太小，连OA系统都没有配置，也没有项目管理协同办公的工具。</p>
+<p>全程靠吼和qq，真是low爆了…</p>
+<p>这说了，没个人都要写日报，每天汇总到一起来发项目组日报。<br>汇总方案如下：</p>
+<ol>
+<li>发邮件，专人汇总</li>
+<li>在svn上面写一个记事本，谁写谁checkout，写完再update</li>
+<li>…没了</li>
+</ol>
+<p>我心说这都什么主意啊…<br>一个组里有20多口子人，这要是用邮件汇总，负责贴日报的兄弟每天光收拾这个邮件怎么也得干十来分钟吧，要是让我每天都干这档子事儿肯定得把头发挠下来一块儿<br>用SVN这么多人用一个文件，那还不如写邮件呢…</p>
+<p>要让我写个OA我可是没时间，也没那技术积累。<br>还是写个脚本吧，这个简单，分分钟搞定</p>
+<a id="more"></a>
+<h1 id="主要流程"><a href="#主要流程" class="headerlink" title="主要流程"></a>主要流程</h1><p>需要做的工作很简单</p>
+<ol>
+<li>在当前目录新建一个文本文件</li>
+<li>在目标SVN路径下查找所有符合条件的txt日志</li>
+<li>把所有发现的日志文件中符合当前日期的日志内容取出来，都保存在新建的文本文件中</li>
+<li>保存文件</li>
+</ol>
+<p>按照这个思路，一个模块一个模块来就行了</p>
+<h1 id="收集文件"><a href="#收集文件" class="headerlink" title="收集文件"></a>收集文件</h1><p>想汇总日志，第一件事儿就是把大家的日志先收上来。<br>都不用搞啥花活儿了，直接用windows记事本就得了，还有F5快捷时间戳，正则表达也好拼。<br>用Python感觉还是有点儿重了，所以决定使用perl来写一段</p>
+<p>因为原来写过这种搬文件的东西，这里可以直接拿过来用</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span> <span class="keyword">my</span> $file (<span class="keyword">glob</span> <span class="string">"*.txt"</span>) 取当前目录下的所有txt为后缀文件</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">#print $file; #$file为文件名</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="打开文本文件"><a href="#打开文本文件" class="headerlink" title="打开文本文件"></a>打开文本文件</h1><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/perl</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">open</span>(REPORT,<span class="string">"&gt;"</span>.$reportFileName) <span class="keyword">or</span> <span class="keyword">die</span> $!;<span class="comment">#$reportFileName为目标文件名</span></span><br><span class="line"><span class="keyword">syswrite</span>(REPORT,<span class="string">"$content"</span>);<span class="comment">#写文件</span></span><br><span class="line"><span class="keyword">close</span>(REPORT);</span><br></pre></td></tr></table></figure>
+<h1 id="生成时间戳"><a href="#生成时间戳" class="headerlink" title="生成时间戳"></a>生成时间戳</h1><p>这个也是我工具箱里面必备部分，直接用。<br>方法返回一个hash表</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/perl</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">sub</span> <span class="title">getTime</span></span><br><span class="line"></span>&#123;</span><br><span class="line">   <span class="comment">#time()函数返回从1970年1月1日起累计秒数</span></span><br><span class="line">    <span class="keyword">my</span> $time = <span class="keyword">shift</span> || <span class="keyword">time</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">my</span> ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = <span class="keyword">localtime</span>($time);</span><br><span class="line"></span><br><span class="line">    $mon ++;</span><br><span class="line">    $sec  = ($sec&lt;<span class="number">10</span>)?<span class="string">"0$sec"</span>:$sec;<span class="comment">#秒数[0,59]</span></span><br><span class="line">    $min  = ($min&lt;<span class="number">10</span>)?<span class="string">"0$min"</span>:$min;<span class="comment">#分数[0,59]</span></span><br><span class="line">    $hour = ($hour&lt;<span class="number">10</span>)?<span class="string">"0$hour"</span>:$hour;<span class="comment">#小时数[0,23]</span></span><br><span class="line">    $mday = ($mday&lt;<span class="number">10</span>)?<span class="string">"0$mday"</span>:$mday;<span class="comment">#这个月的第几天[1,31]</span></span><br><span class="line">    <span class="keyword">my</span> $monF  = ($mon&lt;<span class="number">10</span>)?<span class="string">"0$mon"</span>:$mon;<span class="comment">#月数[0,11],要将$mon加1之后，才能符合实际情况。</span></span><br><span class="line">    $year+=<span class="number">1900</span>;<span class="comment">#从1900年算起的年数</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#$wday从星期六算起，代表是在这周中的第几天[0-6]</span></span><br><span class="line">    <span class="comment">#$yday从一月一日算起，代表是在这年中的第几天[0,364]</span></span><br><span class="line">  <span class="comment"># $isdst只是一个flag</span></span><br><span class="line">    <span class="keyword">my</span> $weekday = (<span class="string">'Sun'</span>,<span class="string">'Mon'</span>,<span class="string">'Tue'</span>,<span class="string">'Wed'</span>,<span class="string">'Thu'</span>,<span class="string">'Fri'</span>,<span class="string">'Sat'</span>)[$wday];</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="string">'second'</span> =&gt; $sec,</span><br><span class="line">             <span class="string">'minute'</span> =&gt; $min,</span><br><span class="line">             <span class="string">'hour'</span>   =&gt; $hour,</span><br><span class="line">             <span class="string">'day'</span>    =&gt; $mday,</span><br><span class="line">             <span class="string">'month'</span>  =&gt; $mon,</span><br><span class="line">			 <span class="string">'month_F'</span>  =&gt; $monF,</span><br><span class="line">             <span class="string">'year'</span>   =&gt; $year,</span><br><span class="line">             <span class="string">'weekNo'</span> =&gt; $wday,</span><br><span class="line">             <span class="string">'wday'</span>   =&gt; $weekday,</span><br><span class="line">             <span class="string">'yday'</span>   =&gt; $yday,</span><br><span class="line">             <span class="string">'date'</span>   =&gt; <span class="string">"$year/$mon/$mday"</span>,</span><br><span class="line">			 <span class="string">'dateF'</span>   =&gt; <span class="string">"$year$monF$mday"</span></span><br><span class="line">          &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="代码拼装"><a href="#代码拼装" class="headerlink" title="代码拼装"></a>代码拼装</h1><p>把之前三个模块直接拼在一起，查找文件并打开文件，取文本内容，再做正则表达式匹配查找日志文件作者</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/perl</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> strict;</span><br><span class="line"><span class="keyword">use</span> File::<span class="keyword">stat</span>;</span><br><span class="line"><span class="keyword">use</span> File::Copy;</span><br><span class="line"><span class="keyword">use</span> Net::Telnet;</span><br><span class="line"><span class="keyword">use</span> File::Basename;</span><br><span class="line"></span><br><span class="line"><span class="keyword">my</span> $work_path =  dirname(__FILE_<span class="number">_</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> $work_path.<span class="string">"\n"</span>;</span><br><span class="line"><span class="keyword">chdir</span> $work_path;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">sub</span> <span class="title">getTime</span></span><br><span class="line"></span>&#123;</span><br><span class="line">   <span class="comment">#time()函数返回从1970年1月1日起累计秒数</span></span><br><span class="line">    <span class="keyword">my</span> $time = <span class="keyword">shift</span> || <span class="keyword">time</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">my</span> ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = <span class="keyword">localtime</span>($time);</span><br><span class="line"></span><br><span class="line">    $mon ++;</span><br><span class="line">    $sec  = ($sec&lt;<span class="number">10</span>)?<span class="string">"0$sec"</span>:$sec;<span class="comment">#秒数[0,59]</span></span><br><span class="line">    $min  = ($min&lt;<span class="number">10</span>)?<span class="string">"0$min"</span>:$min;<span class="comment">#分数[0,59]</span></span><br><span class="line">    $hour = ($hour&lt;<span class="number">10</span>)?<span class="string">"0$hour"</span>:$hour;<span class="comment">#小时数[0,23]</span></span><br><span class="line">    $mday = ($mday&lt;<span class="number">10</span>)?<span class="string">"0$mday"</span>:$mday;<span class="comment">#这个月的第几天[1,31]</span></span><br><span class="line">    <span class="keyword">my</span> $monF  = ($mon&lt;<span class="number">10</span>)?<span class="string">"0$mon"</span>:$mon;<span class="comment">#月数[0,11],要将$mon加1之后，才能符合实际情况。</span></span><br><span class="line">    $year+=<span class="number">1900</span>;<span class="comment">#从1900年算起的年数</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#$wday从星期六算起，代表是在这周中的第几天[0-6]</span></span><br><span class="line">    <span class="comment">#$yday从一月一日算起，代表是在这年中的第几天[0,364]</span></span><br><span class="line">  <span class="comment"># $isdst只是一个flag</span></span><br><span class="line">    <span class="keyword">my</span> $weekday = (<span class="string">'Sun'</span>,<span class="string">'Mon'</span>,<span class="string">'Tue'</span>,<span class="string">'Wed'</span>,<span class="string">'Thu'</span>,<span class="string">'Fri'</span>,<span class="string">'Sat'</span>)[$wday];</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="string">'second'</span> =&gt; $sec,</span><br><span class="line">             <span class="string">'minute'</span> =&gt; $min,</span><br><span class="line">             <span class="string">'hour'</span>   =&gt; $hour,</span><br><span class="line">             <span class="string">'day'</span>    =&gt; $mday,</span><br><span class="line">             <span class="string">'month'</span>  =&gt; $mon,</span><br><span class="line">			 <span class="string">'month_F'</span>  =&gt; $monF,</span><br><span class="line">             <span class="string">'year'</span>   =&gt; $year,</span><br><span class="line">             <span class="string">'weekNo'</span> =&gt; $wday,</span><br><span class="line">             <span class="string">'wday'</span>   =&gt; $weekday,</span><br><span class="line">             <span class="string">'yday'</span>   =&gt; $yday,</span><br><span class="line">             <span class="string">'date'</span>   =&gt; <span class="string">"$year/$mon/$mday"</span>,</span><br><span class="line">			 <span class="string">'dateF'</span>   =&gt; <span class="string">"$year$monF$mday"</span></span><br><span class="line">          &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#main</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">my</span> $date = &amp;getTime();<span class="comment">#获取当前系统时间的Hash</span></span><br><span class="line"><span class="keyword">my</span> $timestaemp = $date-&gt;&#123;dateF&#125;;<span class="comment">#获取yyyymmdd这样的日期  </span></span><br><span class="line"><span class="keyword">my</span> $timeRegexpString= $date-&gt;&#123;date&#125;;</span><br><span class="line"><span class="keyword">my</span> $reportFileName= <span class="string">"QA_DailyReport_$timestaemp.txt"</span>;</span><br><span class="line"><span class="keyword">print</span> $reportFileName.<span class="string">"\n"</span>;</span><br><span class="line"><span class="keyword">print</span> $timeRegexpString.<span class="string">"\n"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">open</span>(REPORT,<span class="string">"&gt;"</span>.$reportFileName) <span class="keyword">or</span> <span class="keyword">die</span> $!;</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span> <span class="keyword">my</span> $file (<span class="keyword">glob</span> <span class="string">"*.txt"</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">#print $file;</span></span><br><span class="line">		<span class="keyword">if</span> ($file=~<span class="regexp">m/QA/</span>)</span><br><span class="line">		&#123;			</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">elsif</span> ($file=~<span class="regexp">m/(.*).txt/</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">my</span> $rwFlag= <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">print</span> <span class="string">"Report: "</span>.$1.<span class="string">"\n"</span>;</span><br><span class="line">			<span class="keyword">syswrite</span>(REPORT,$1.<span class="string">" @ "</span>);		</span><br><span class="line">			<span class="keyword">open</span> FILE, $file <span class="keyword">or</span> <span class="keyword">die</span> $!;</span><br><span class="line">			<span class="keyword">chomp</span> (<span class="keyword">my</span> @lines = (&lt;FILE&gt;));</span><br><span class="line">			<span class="keyword">close</span>(FILE);</span><br><span class="line">			<span class="keyword">my</span> $i = <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">foreach</span> <span class="keyword">my</span> $line (@lines)</span><br><span class="line">			&#123;</span><br><span class="line">			   <span class="comment">#print $line."\n";</span></span><br><span class="line">			   <span class="keyword">if</span> ($line=~<span class="regexp">m/$timeRegexpString/</span>)</span><br><span class="line">			   &#123;</span><br><span class="line">					$rwFlag= <span class="number">1</span>;</span><br><span class="line">			   &#125;</span><br><span class="line">			   <span class="keyword">elsif</span>($line=~<span class="regexp">m/\d&#123;4&#125;\/\d?\/\d?/</span>)</span><br><span class="line">			   &#123;</span><br><span class="line">					$rwFlag= <span class="number">0</span>;</span><br><span class="line">			   &#125;</span><br><span class="line">			   <span class="keyword">if</span> ($rwFlag== <span class="number">1</span>)</span><br><span class="line">			   &#123;</span><br><span class="line">					<span class="keyword">syswrite</span>(REPORT,$line.<span class="string">"\n"</span>);					</span><br><span class="line">			   &#125;</span><br><span class="line"></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">close</span>(REPORT);</span><br></pre></td></tr></table></figure>
+<h1 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h1><p>后面调试了一下，觉得还是差了一点儿东西。<br>做了一部分调整</p>
+<ol>
+<li>添加了格式化输出，直接在命令行打印日志提交状态</li>
+<li>对子工作组的命名规则做了正则匹配</li>
+</ol>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/perl</span></span><br><span class="line"><span class="keyword">use</span> utf8;</span><br><span class="line"><span class="keyword">use</span> strict;</span><br><span class="line"><span class="keyword">use</span> File::<span class="keyword">stat</span>;</span><br><span class="line"><span class="keyword">use</span> File::Copy;</span><br><span class="line"><span class="keyword">use</span> File::Basename;</span><br><span class="line"><span class="keyword">use</span> Data::Dumper;</span><br><span class="line"><span class="keyword">use</span> Encode;</span><br><span class="line"></span><br><span class="line"><span class="comment">#获取系统路径并切换路径</span></span><br><span class="line"><span class="keyword">my</span> $work_path =  dirname(__FILE_<span class="number">_</span>);</span><br><span class="line"><span class="keyword">chdir</span> $work_path <span class="keyword">or</span> <span class="keyword">die</span> $!;</span><br><span class="line"></span><br><span class="line"><span class="keyword">opendir</span>(DIR, $work_path.<span class="string">"//DailyReport"</span>) <span class="keyword">or</span> <span class="keyword">die</span> $!;</span><br><span class="line"><span class="keyword">my</span> @filename = <span class="keyword">readdir</span>(DIR);</span><br><span class="line"><span class="comment">#print Dumper(@filename);</span></span><br><span class="line">@filename= <span class="keyword">sort</span> &#123;$a cmp $b&#125; @filename;</span><br><span class="line"><span class="comment">#print Dumper(@filename);</span></span><br><span class="line"><span class="keyword">my</span> $archiveFolder = <span class="string">"Archived"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">#my %teamOrg = ('AT',"Automation",'ST',"System_Test",'MT',"Mobile_Test");</span></span><br><span class="line"><span class="keyword">my</span> %teamOrg = (<span class="string">'AT'</span>,<span class="string">"Automation"</span>,<span class="string">'ST'</span>,<span class="string">"System_Test"</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">sub</span> <span class="title">getTime</span></span><br><span class="line"></span>&#123;</span><br><span class="line">   <span class="comment">#time()函数返回从1970年1月1日起累计秒数</span></span><br><span class="line">    <span class="keyword">my</span> $time = <span class="keyword">shift</span> || <span class="keyword">time</span>();</span><br><span class="line">    <span class="keyword">my</span> ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst,$monF) = <span class="keyword">localtime</span>($time);</span><br><span class="line">    $mon ++;</span><br><span class="line">    $sec  = ($sec&lt;<span class="number">10</span>)?<span class="string">"0$sec"</span>:$sec;<span class="comment">#秒数[0,59]</span></span><br><span class="line">    $min  = ($min&lt;<span class="number">10</span>)?<span class="string">"0$min"</span>:$min;<span class="comment">#分数[0,59]</span></span><br><span class="line">    $hour = ($hour&lt;<span class="number">10</span>)?<span class="string">"0$hour"</span>:$hour;<span class="comment">#小时数[0,23]</span></span><br><span class="line">    $mday = ($mday&lt;<span class="number">10</span>)?<span class="string">"0$mday"</span>:$mday;<span class="comment">#这个月的第几天[1,31]</span></span><br><span class="line">    $monF  = ($mon&lt;<span class="number">10</span>)?<span class="string">"0$mon"</span>:$mon;<span class="comment">#月数[0,11],要将$mon加1之后，才能符合实际情况。</span></span><br><span class="line">    $year+=<span class="number">1900</span>;</span><br><span class="line">    <span class="keyword">my</span> $weekday = (<span class="string">'Sun'</span>,<span class="string">'Mon'</span>,<span class="string">'Tue'</span>,<span class="string">'Wed'</span>,<span class="string">'Thu'</span>,<span class="string">'Fri'</span>,<span class="string">'Sat'</span>)[$wday];</span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="string">'second'</span> =&gt; $sec,</span><br><span class="line">             <span class="string">'minute'</span> =&gt; $min,</span><br><span class="line">             <span class="string">'hour'</span>   =&gt; $hour,</span><br><span class="line">             <span class="string">'day'</span>    =&gt; $mday,</span><br><span class="line">             <span class="string">'month'</span>  =&gt; $mon,</span><br><span class="line">			 <span class="string">'month_F'</span>  =&gt; $monF,</span><br><span class="line">             <span class="string">'year'</span>   =&gt; $year,</span><br><span class="line">             <span class="string">'weekNo'</span> =&gt; $wday,</span><br><span class="line">             <span class="string">'wday'</span>   =&gt; $weekday,</span><br><span class="line">             <span class="string">'yday'</span>   =&gt; $yday,</span><br><span class="line">             <span class="string">'date'</span>   =&gt; <span class="string">"$year/$mon/$mday"</span>,</span><br><span class="line">			 <span class="string">'dateF'</span>   =&gt; <span class="string">"$year$monF$mday"</span></span><br><span class="line">          &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#main</span></span><br><span class="line"><span class="keyword">my</span> $date = &amp;getTime();<span class="comment">#获取当前系统时间的Hash</span></span><br><span class="line"><span class="keyword">my</span> $timestamp = $date-&gt;&#123;dateF&#125;;<span class="comment">#获取yyyymmdd这样的日期</span></span><br><span class="line"><span class="keyword">my</span> $timeRegexpString= $date-&gt;&#123;date&#125;;</span><br><span class="line"><span class="keyword">my</span> %detail;</span><br><span class="line"><span class="keyword">my</span> %counter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span> <span class="keyword">my</span> $t (<span class="keyword">keys</span> %teamOrg)</span><br><span class="line">&#123;</span><br><span class="line">	$counter&#123;$t&#125;&#123;<span class="string">'updated'</span>&#125;=<span class="number">0</span>;</span><br><span class="line">	$counter&#123;$t&#125;&#123;<span class="string">'profile'</span>&#125;=<span class="number">0</span>;</span><br><span class="line">	$counter&#123;$t&#125;&#123;<span class="string">'ReportFile'</span>&#125;=<span class="string">"QA_"</span>.$teamOrg&#123;$t&#125;.<span class="string">"_DailyReport_$timestamp.txt"</span>;</span><br><span class="line">	<span class="keyword">open</span>($counter&#123;$t&#125;&#123;<span class="string">'fileHandler'</span>&#125;,<span class="string">"&gt;"</span>.$counter&#123;$t&#125;&#123;<span class="string">'ReportFile'</span>&#125;) <span class="keyword">or</span> <span class="keyword">die</span> $!;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">#print Dumper(%counter);</span></span><br><span class="line"><span class="keyword">chdir</span> $work_path.<span class="string">"//DailyReport"</span> <span class="keyword">or</span> <span class="keyword">die</span> <span class="string">"Can't find path DailyReport"</span>.$!;</span><br><span class="line"></span><br><span class="line"><span class="comment">#foreach my $file (glob "*.txt")</span></span><br><span class="line"><span class="keyword">foreach</span> <span class="keyword">my</span> $file (@filename)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">#print $file;</span></span><br><span class="line">		<span class="keyword">if</span> ($file=~<span class="regexp">m/(.*)_(.*).txt/</span>)</span><br><span class="line">		&#123;		</span><br><span class="line">			<span class="keyword">my</span> $team = $1;</span><br><span class="line">			<span class="keyword">my</span> $teamMember = $2;</span><br><span class="line">			<span class="keyword">next</span> <span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exists</span>($teamOrg&#123;$team&#125;);</span><br><span class="line">			<span class="keyword">my</span> $teamFullName = $teamOrg&#123;$1&#125;;</span><br><span class="line">			<span class="keyword">my</span> $rwFlag= <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">my</span> $submitFlag = <span class="number">0</span>;</span><br><span class="line">			$counter&#123;$team&#125;&#123;<span class="string">'profile'</span>&#125;++;</span><br><span class="line">			<span class="keyword">syswrite</span>($counter&#123;$team&#125;&#123;<span class="string">'fileHandler'</span>&#125;,$teamMember.<span class="string">" @ "</span>) <span class="keyword">or</span> <span class="keyword">die</span> <span class="string">"Can't write report file"</span>.$!;</span><br><span class="line">			<span class="keyword">open</span> FILE, $file <span class="keyword">or</span> <span class="keyword">die</span> $!;</span><br><span class="line">			<span class="keyword">chomp</span> (<span class="keyword">my</span> @lines = (&lt;FILE&gt;));</span><br><span class="line">			<span class="keyword">close</span>(FILE);</span><br><span class="line"></span><br><span class="line">			<span class="keyword">foreach</span> <span class="keyword">my</span> $line (@lines)</span><br><span class="line">			&#123;</span><br><span class="line">			   <span class="keyword">if</span> ($line=~<span class="regexp">m/$timeRegexpString/</span>)</span><br><span class="line">			   &#123;</span><br><span class="line">					$rwFlag= <span class="number">1</span>;</span><br><span class="line">			   &#125;</span><br><span class="line">			   <span class="keyword">elsif</span>($line=~<span class="regexp">m/\d&#123;4&#125;\/\d?\/\d?/</span>)</span><br><span class="line">			   &#123;</span><br><span class="line">					$rwFlag= <span class="number">0</span>;</span><br><span class="line">			   &#125;</span><br><span class="line">			   <span class="keyword">if</span> ($rwFlag== <span class="number">1</span>)</span><br><span class="line">			   &#123;</span><br><span class="line">					<span class="keyword">syswrite</span>($counter&#123;$team&#125;&#123;<span class="string">'fileHandler'</span>&#125;,$line.<span class="string">"\r\n"</span>) <span class="keyword">or</span> <span class="keyword">die</span> <span class="string">"Can't write report file"</span>.$!;</span><br><span class="line">					$submitFlag=<span class="number">1</span>;</span><br><span class="line">			   &#125;				</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> ($submitFlag == <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				$detail&#123;<span class="string">"NotUpdate"</span>&#125;&#123;$teamMember&#125;&#123;<span class="string">"status"</span>&#125;=<span class="string">"Not Submit"</span>;</span><br><span class="line">				$detail&#123;<span class="string">"NotUpdate"</span>&#125;&#123;$teamMember&#125;&#123;<span class="string">"team"</span>&#125;=$teamOrg&#123;$team&#125;;</span><br><span class="line">				<span class="keyword">syswrite</span>($counter&#123;$team&#125;&#123;<span class="string">'fileHandler'</span>&#125;,<span class="string">"\r\n"</span>) <span class="keyword">or</span> <span class="keyword">die</span> <span class="string">"Can't write report file"</span>.$!;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				$counter&#123;$team&#125;&#123;<span class="string">'updated'</span>&#125;++;</span><br><span class="line">				$detail&#123;<span class="string">"Updated"</span>&#125;&#123;$team&#125;&#123;$teamMember&#125;&#123;<span class="string">"status"</span>&#125;=<span class="string">"Updated"</span>;</span><br><span class="line">				$detail&#123;<span class="string">"Updated"</span>&#125;&#123;$team&#125;&#123;$teamMember&#125;&#123;<span class="string">"team"</span>&#125;=$teamOrg&#123;$team&#125;;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">syswrite</span>($counter&#123;$team&#125;&#123;<span class="string">'fileHandler'</span>&#125;,<span class="string">"\r\n"</span>) <span class="keyword">or</span> <span class="keyword">die</span> <span class="string">"Can't write report file"</span>.$!;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">		<span class="keyword">next</span>;</span><br><span class="line">			&#125;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">#print Dumper(%detail);</span></span><br><span class="line"><span class="keyword">my</span> ($dname, $dteam, $dstatus);</span><br><span class="line"><span class="keyword">my</span> $updatedHash = $detail&#123;<span class="string">"Updated"</span>&#125;;</span><br><span class="line"><span class="keyword">my</span> $notUpdateHash = $detail&#123;<span class="string">"NotUpdate"</span>&#125;;</span><br><span class="line"><span class="keyword">my</span> $updated_size=<span class="keyword">keys</span>%$updatedHash;</span><br><span class="line"><span class="keyword">my</span> $notupdated_size = <span class="keyword">keys</span>%$notUpdateHash;</span><br><span class="line"><span class="comment">#print Dumper($updatedHash);</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span> <span class="keyword">my</span> $teamHash (<span class="keyword">sort</span> &#123;$b cmp $a&#125; <span class="keyword">keys</span> %$updatedHash)&#123;</span><br><span class="line">	<span class="keyword">my</span> $updateTeamHash =  $detail&#123;<span class="string">"Updated"</span>&#125;&#123;$teamHash&#125;;</span><br><span class="line">	<span class="comment">#print Dumper($updateTeamHash);</span></span><br><span class="line">	<span class="keyword">foreach</span> <span class="keyword">my</span> $name (<span class="keyword">sort</span> &#123;$b cmp $a&#125; <span class="keyword">keys</span> %$updateTeamHash)</span><br><span class="line">	&#123;</span><br><span class="line">		($dname, $dteam, $dstatus)= ($name,$detail&#123;<span class="string">"Updated"</span>&#125;&#123;$teamHash&#125;&#123;$name&#125;&#123;<span class="string">"team"</span>&#125;,$detail&#123;<span class="string">"Updated"</span>&#125;&#123;$teamHash&#125;&#123;$name&#125;&#123;<span class="string">"status"</span>&#125;);</span><br><span class="line">		$^ = <span class="string">'STDOUT_TOP'</span>;</span><br><span class="line">		$~ = <span class="string">'STDOUT'</span>;</span><br><span class="line">		<span class="keyword">write</span> <span class="keyword">or</span> <span class="keyword">die</span> <span class="string">"Error"</span>,$!;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">print</span> <span class="string">"------------------------------------------------------------------\n"</span>  <span class="keyword">if</span> ($updated_size!=<span class="number">0</span> <span class="keyword">or</span> $notupdated_size!=<span class="number">0</span>);</span><br><span class="line"><span class="keyword">foreach</span> <span class="keyword">my</span> $name (<span class="keyword">sort</span> &#123;$b cmp $a&#125; <span class="keyword">keys</span> %$notUpdateHash)</span><br><span class="line">&#123;</span><br><span class="line">	($dname, $dteam, $dstatus)= ($name,$detail&#123;<span class="string">"NotUpdate"</span>&#125;&#123;$name&#125;&#123;<span class="string">"team"</span>&#125;,$detail&#123;<span class="string">"NotUpdate"</span>&#125;&#123;$name&#125;&#123;<span class="string">"status"</span>&#125;);</span><br><span class="line">	$^ = <span class="string">'STDOUT_TOP'</span>;</span><br><span class="line">	$~ = <span class="string">'STDOUT'</span>;</span><br><span class="line">	<span class="keyword">write</span> <span class="keyword">or</span> <span class="keyword">die</span> <span class="string">"Error"</span>,$!;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">format</span> STDOUT_TOP =</span><br><span class="line">@&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span><br><span class="line">$timeRegexpString	  </span><br><span class="line">		Daily Report Status</span><br><span class="line">------------------------------------------------------------------		</span><br><span class="line">Name           Team             Report Status</span><br><span class="line">------------------------------------------------------------------</span><br><span class="line">.</span><br><span class="line"></span><br><span class="line"><span class="keyword">format</span> STDOUT =</span><br><span class="line">@&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;@&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;@&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span><br><span class="line">$dname,                        $dteam,                                   $dstatus</span><br><span class="line">.</span><br><span class="line"><span class="keyword">print</span> <span class="string">"------------------------------------------------------------------\n"</span>;</span><br><span class="line"><span class="keyword">foreach</span> <span class="keyword">my</span> $t (<span class="keyword">keys</span> %teamOrg)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">close</span>($counter&#123;$t&#125;&#123;<span class="string">'fileHandler'</span>&#125;);</span><br><span class="line">	<span class="keyword">print</span> $t,<span class="string">": "</span>,$counter&#123;$t&#125;&#123;<span class="string">"updated"</span>&#125;,<span class="string">"/"</span>,$counter&#123;$t&#125;&#123;<span class="string">"profile"</span>&#125;,<span class="string">"\n"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">print</span> <span class="string">"------------------------------------------------------------------\n"</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">chdir</span> $work_path <span class="keyword">or</span> <span class="keyword">die</span> $!;</span><br><span class="line"><span class="keyword">mkdir</span> $archiveFolder <span class="keyword">unless</span> -e $archiveFolder;</span><br><span class="line"></span><br><span class="line"><span class="keyword">opendir</span>(DIR, $work_path) <span class="keyword">or</span> <span class="keyword">die</span> $!;</span><br><span class="line"><span class="keyword">my</span> @filename = <span class="keyword">readdir</span>(DIR);</span><br><span class="line"><span class="keyword">foreach</span> <span class="keyword">my</span> $file (@filename)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> ($file=~<span class="regexp">m/^QA.*.txt/</span>)&#123;</span><br><span class="line">	<span class="comment">#print $file."\n";</span></span><br><span class="line">	<span class="keyword">my</span> $source = $work_path .<span class="string">"\\"</span>.$file;</span><br><span class="line">	<span class="keyword">my</span> $dest = $work_path .<span class="string">"\\"</span>.$archiveFolder.<span class="string">"\\"</span>.$file;</span><br><span class="line">	move ($work_path .<span class="string">"/"</span>.$file,$dest)  <span class="keyword">unless</span> $file =~<span class="regexp">m/$timestamp/</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">system</span>(<span class="string">"pause"</span>);</span><br></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这种小活儿，果然还是用perl来做比较好。<br>Perl被归类为魔幻语言就是因为什么事儿都会有更好的解决方法。<br>上面这个脚本以最笨的方式解决了一个更笨的需求。</p>
+<p>P.S. 这个小工具前后一共使用了1一个月左右，多少节省了一部分劳动力吧。<br>但要是专门做一个Web App来搞这个小事儿，投入产出结果可是太不值了…</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Perl/" rel="tag">#Perl</a>
+          
+            <a href="/tags/自娱自乐/" rel="tag">#自娱自乐</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/10/20160410-Say-Bye-Bye-to-Python-IDLE/" rel="next" title="Say Bye Bye to Python IDLE">
+                <i class="fa fa-chevron-left"></i> Say Bye Bye to Python IDLE
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/25/20160425-Python-Logger-Module/" rel="prev" title="20160425 Python Logger Module">
+                20160425 Python Logger Module <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="Audric" />
+          <p class="site-author-name" itemprop="name">Audric</p>
+          <p class="site-description motion-element" itemprop="description">Nothing Serious</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/evinoca" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主要流程"><span class="nav-number">2.</span> <span class="nav-text">主要流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#收集文件"><span class="nav-number">3.</span> <span class="nav-text">收集文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#打开文本文件"><span class="nav-number">4.</span> <span class="nav-text">打开文本文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生成时间戳"><span class="nav-number">5.</span> <span class="nav-text">生成时间戳</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码拼装"><span class="nav-number">6.</span> <span class="nav-text">代码拼装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化"><span class="nav-number">7.</span> <span class="nav-text">优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Audric</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/vendors/jquery-scrollintoview/jquery.scrollintoview.min.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'evinoca';
+      var disqus_identifier = '2016/04/14/20160414-Collect-Shabby-Daily-Reports-over-SVN-with-Perl/';
+      var disqus_title = '简单问题简单处理-Perl来汇总零散的Txt文件';
+      var disqus_url = 'http://evinoca.github.io/2016/04/14/20160414-Collect-Shabby-Daily-Reports-over-SVN-with-Perl/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

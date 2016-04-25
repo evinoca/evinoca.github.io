@@ -1,0 +1,739 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python,Deep-Learning," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="世界上每天产生的数据量已经快要超过天际了，但是我们对数据的分析能力还远远不够。数据挖掘注定是一个必然火爆的需求点看了一个数据挖掘库的列表，找个时间选一个试试手。
+转自Python机器学习库
+Python在科学计算领域，有两个重要的扩展模块：Numpy和Scipy。
+其中Numpy是一个用python实现的科学计算包。包括：一个强大的N维数组对象Array；比较成熟的（广播）函数库；用于整合C/C+">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python Deep Study Libs">
+<meta property="og:url" content="http://evinoca.github.io/2016/04/07/20160407-Python-Deep-Study-Libs/index.html">
+<meta property="og:site_name" content="Audric's Precious Toy Box">
+<meta property="og:description" content="世界上每天产生的数据量已经快要超过天际了，但是我们对数据的分析能力还远远不够。数据挖掘注定是一个必然火爆的需求点看了一个数据挖掘库的列表，找个时间选一个试试手。
+转自Python机器学习库
+Python在科学计算领域，有两个重要的扩展模块：Numpy和Scipy。
+其中Numpy是一个用python实现的科学计算包。包括：一个强大的N维数组对象Array；比较成熟的（广播）函数库；用于整合C/C+">
+<meta property="og:updated_time" content="2016-04-15T07:01:53.598Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python Deep Study Libs">
+<meta name="twitter:description" content="世界上每天产生的数据量已经快要超过天际了，但是我们对数据的分析能力还远远不够。数据挖掘注定是一个必然火爆的需求点看了一个数据挖掘库的列表，找个时间选一个试试手。
+转自Python机器学习库
+Python在科学计算领域，有两个重要的扩展模块：Numpy和Scipy。
+其中Numpy是一个用python实现的科学计算包。包括：一个强大的N维数组对象Array；比较成熟的（广播）函数库；用于整合C/C+">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Python Deep Study Libs | Audric's Precious Toy Box </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?625dfa09271d60f4da0f01277bee349e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Audric's Precious Toy Box</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">点滴记忆汇集成生活</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Python Deep Study Libs
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-07T17:35:23+08:00" content="2016-04-07">
+              2016-04-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/07/20160407-Python-Deep-Study-Libs/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/04/07/20160407-Python-Deep-Study-Libs/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>世界上每天产生的数据量已经快要超过天际了，但是我们对数据的分析能力还远远不够。<br>数据挖掘注定是一个必然火爆的需求点<br>看了一个数据挖掘库的列表，找个时间选一个试试手。</p>
+<p>转自<a href="http://qxde01.blog.163.com/blog/static/67335744201368101922991/" target="_blank" rel="external">Python机器学习库</a></p>
+<p>Python在科学计算领域，有两个重要的扩展模块：Numpy和Scipy。</p>
+<p>其中Numpy是一个用python实现的科学计算包。包括：<br>一个强大的N维数组对象Array；<br>比较成熟的（广播）函数库；<br>用于整合C/C++和Fortran代码的工具包；<br>实用的线性代数、傅里叶变换和随机数生成函数。</p>
+<p> SciPy是一个开源的Python算法库和数学工具包，SciPy包含的模块有最优化、线性代数、积分、插值、特殊函数、快速傅里叶变换、信号处理和图像处理、常微分方程求解和其他科学与工程中常用的计算。其功能与软件MATLAB、Scilab和GNU Octave类似。</p>
+<p>Numpy和Scipy常常结合着使用，Python大多数机器学习库都依赖于这两个模块，绘图和可视化依赖于matplotlib模块，matplotlib的风格与matlab类<br>Python机器学习库非常多，而且大多数开源，主要有：</p>
+<a id="more"></a>
+<h1 id="scikit-learn"><a href="#scikit-learn" class="headerlink" title="scikit-learn"></a>scikit-learn</h1><p>scikit-learn 是一个基于SciPy和Numpy的开源机器学习模块，包括分类、回归、聚类系列算法，主要算法有SVM、逻辑回归、朴素贝叶斯、Kmeans、DBSCAN等，目前由INRI 资助，偶尔Google也资助一点。</p>
+<p>项目主页：</p>
+<p><a href="https://pypi.python.org/pypi/scikit-learn/" target="_blank" rel="external">https://pypi.python.org/pypi/scikit-learn/</a><br><a href="http://scikit-learn.org/" target="_blank" rel="external">http://scikit-learn.org/</a><br><a href="https://github.com/scikit-learn/scikit-learn" target="_blank" rel="external">https://github.com/scikit-learn/scikit-learn</a></p>
+<h1 id="NLTK"><a href="#NLTK" class="headerlink" title="NLTK"></a>NLTK</h1><p>NLTK(Natural Language Toolkit)是Python的自然语言处理模块，包括一系列的字符处理和语言统计模型。NLTK 常用于学术研究和教学，应用的领域有语言学、认知科学、人工智能、信息检索、机器学习等。 NLTK提供超过50个语料库和词典资源，文本处理库包括分类、分词、词干提取、解析、语义推理。可稳定运行在Windows, Mac OS X和Linux平台上.</p>
+<p>项目主页：</p>
+<p><a href="http://sourceforge.net/projects/nltk/" target="_blank" rel="external">http://sourceforge.net/projects/nltk/</a></p>
+<p><a href="https://pypi.python.org/pypi/nltk/" target="_blank" rel="external">https://pypi.python.org/pypi/nltk/</a></p>
+<p><a href="http://nltk.org/" target="_blank" rel="external">http://nltk.org/</a></p>
+<h1 id="Mlpy"><a href="#Mlpy" class="headerlink" title="Mlpy"></a>Mlpy</h1><p>Mlpy是基于NumPy/SciPy的Python机器学习模块，它是Cython的扩展应用。包含的机器学习算法有：</p>
+<p>回归<br>least squares, ridge regression, least angle regression, elastic net, kernel ridge regression, support vector machines (SVM), partial least squares (PLS)</p>
+<p>分类<br>linear discriminant analysis (LDA), Basic perceptron, Elastic Net, logistic regression, (Kernel) Support Vector Machines (SVM), Diagonal Linear Discriminant Analysis (DLDA), Golub Classifier, Parzen-based, (kernel) Fisher Discriminant Classifier, k-nearest neighbor, Iterative RELIEF, Classification Tree, Maximum Likelihood Classifier</p>
+<p>聚类<br>hierarchical clustering, Memory-saving Hierarchical Clustering, k-means</p>
+<p>维度约减<br>(Kernel) Fisher discriminant analysis (FDA), Spectral Regression Discriminant Analysis (SRDA), (kernel) Principal component analysis (PCA)</p>
+<p>项目主页：</p>
+<p><a href="http://sourceforge.net/projects/mlpy" target="_blank" rel="external">http://sourceforge.net/projects/mlpy</a></p>
+<p><a href="https://mlpy.fbk.eu/" target="_blank" rel="external">https://mlpy.fbk.eu/</a></p>
+<h1 id="Shogun"><a href="#Shogun" class="headerlink" title="Shogun  "></a>Shogun  </h1><p>Shogun是一个开源的大规模机器学习工具箱。目前Shogun的机器学习功能分为几个部分：feature表示，feature预处理， 核函数表示,核函数标准化，距离表示，分类器表示，聚类方法，分布， 性能评价方法，回归方法，结构化输出学习器。</p>
+<p>SHOGUN 的核心由C++实现，提供 Matlab、 R、 Octave、 Python接口。主要应用在linux平台上。</p>
+<p>项目主页：</p>
+<p><a href="http://www.shogun-toolbox.org/" target="_blank" rel="external">http://www.shogun-toolbox.org/</a></p>
+<h1 id="MDP"><a href="#MDP" class="headerlink" title="MDP"></a>MDP</h1><p>The Modular toolkit for Data Processing (MDP) ，用于数据处理的模块化工具包，一个Python数据处理框架。</p>
+<p>从用户的观点，MDP是能够被整合到数据处理序列和更复杂的前馈网络结构的一批监督学习和非监督学习算法和其他数据处理单元。计算依照速度和内存需求而高效的执行。从科学开发者的观点，MDP是一个模块框架，它能够被容易地扩展。新算法的实现是容易且直观的。新实现的单元然后被自动地与程序库的其余部件进行整合。MDP在神经科学的理论研究背景下被编写，但是它已经被设计为在使用可训练数据处理算法的任何情况中都是有用的。其站在用户一边的简单性，各种不同的随时可用的算法，及应用单元的可重用性，使得它也是一个有用的教学工具。</p>
+<p>项目主页：</p>
+<p><a href="http://mdp-toolkit.sourceforge.net/" target="_blank" rel="external">http://mdp-toolkit.sourceforge.net/</a></p>
+<p><a href="https://pypi.python.org/pypi/MDP/" target="_blank" rel="external">https://pypi.python.org/pypi/MDP/</a></p>
+<h1 id="PyBrain"><a href="#PyBrain" class="headerlink" title="PyBrain"></a>PyBrain</h1><p>PyBrain(Python-Based Reinforcement Learning, Artificial Intelligence and Neural Network)是Python的一个机器学习模块，它的目标是为机器学习任务提供灵活、易应、强大的机器学习算法。（这名字很霸气）</p>
+<p>PyBrain正如其名，包括神经网络、强化学习(及二者结合)、无监督学习、进化算法。因为目前的许多问题需要处理连续态和行为空间，必须使用函数逼近(如神经网络)以应对高维数据。PyBrain以神经网络为核心，所有的训练方法都以神经网络为一个实例。</p>
+<p>项目主页：</p>
+<p><a href="http://www.pybrain.org/" target="_blank" rel="external">http://www.pybrain.org/</a></p>
+<p><a href="https://github.com/pybrain/pybrain/" target="_blank" rel="external">https://github.com/pybrain/pybrain/</a></p>
+<h1 id="BigML"><a href="#BigML" class="headerlink" title="BigML"></a>BigML</h1><p>BigML 使得机器学习为数据驱动决策和预测变得容易，BigML使用容易理解的交互式操作创建优雅的预测模型。BigML使用BigML.io,捆绑Python。</p>
+<p>项目主页：</p>
+<p><a href="https://bigml.com/" target="_blank" rel="external">https://bigml.com/</a></p>
+<p><a href="https://pypi.python.org/pypi/bigml" target="_blank" rel="external">https://pypi.python.org/pypi/bigml</a></p>
+<p><a href="http://bigml.readthedocs.org/" target="_blank" rel="external">http://bigml.readthedocs.org/</a></p>
+<h1 id="PyML"><a href="#PyML" class="headerlink" title="PyML"></a>PyML</h1><p>PyML是一个Python机器学习工具包， 为各分类和回归方法提供灵活的架构。它主要提供特征选择、模型选择、组合分类器、分类评估等功能。</p>
+<p>项目主页：</p>
+<p><a href="http://cmgm.stanford.edu/~asab/pyml/tutorial/" target="_blank" rel="external">http://cmgm.stanford.edu/~asab/pyml/tutorial/</a></p>
+<p><a href="http://pyml.sourceforge.net/" target="_blank" rel="external">http://pyml.sourceforge.net/</a></p>
+<h1 id="Milk"><a href="#Milk" class="headerlink" title="Milk"></a>Milk</h1><p>Milk是Python的一个机器学习工具箱，其重点是提供监督分类法与几种有效的分类分析：SVMs(基于libsvm)，K-NN，随机森林经济和决策树。它还可以进行特征选择。这些分类可以在许多方面相结合，形成不同的分类系统。</p>
+<p>对于无监督学习，它提供K-means和affinity propagation聚类算法。</p>
+<p>项目主页：</p>
+<p><a href="https://pypi.python.org/pypi/milk/" target="_blank" rel="external">https://pypi.python.org/pypi/milk/</a></p>
+<p><a href="http://luispedro.org/software/milk" target="_blank" rel="external">http://luispedro.org/software/milk</a></p>
+<h1 id="PyMVPA"><a href="#PyMVPA" class="headerlink" title="PyMVPA"></a>PyMVPA</h1><p>PyMVPA(Multivariate Pattern Analysis in Python)是为大数据集提供统计学习分析的Python工具包，它提供了一个灵活可扩展的框架。它提供的功能有分类、回归、特征选择、数据导入导出、可视化等</p>
+<p>项目主页：</p>
+<p><a href="http://www.pymvpa.org/" target="_blank" rel="external">http://www.pymvpa.org/</a><br><a href="https://github.com/PyMVPA/PyMVPA" target="_blank" rel="external">https://github.com/PyMVPA/PyMVPA</a></p>
+<h1 id="Pattern"><a href="#Pattern" class="headerlink" title="Pattern"></a>Pattern</h1><p>Pattern是Python的web挖掘模块，它绑定了  Google、Twitter 、Wikipedia API，提供网络爬虫、HTML解析功能，文本分析包括浅层规则解析、WordNet接口、句法与语义分析、TF-IDF、LSA等，还提供聚类、分类和图网络可视化的功能。</p>
+<p>项目主页：</p>
+<p><a href="http://www.clips.ua.ac.be/pages/pattern" target="_blank" rel="external">http://www.clips.ua.ac.be/pages/pattern</a><br><a href="https://pypi.python.org/pypi/Pattern" target="_blank" rel="external">https://pypi.python.org/pypi/Pattern</a></p>
+<h1 id="pyrallel"><a href="#pyrallel" class="headerlink" title="pyrallel"></a>pyrallel</h1><p>Pyrallel(Parallel Data Analytics in Python)基于分布式计算模式的机器学习和半交互式的试验项目，可在小型集群上运行，适用范围：</p>
+<ul>
+<li>focus on small to medium dataset that fits in memory on a small (10+ nodes) to medium cluster (100+ nodes).</li>
+<li>focus on small to medium data (with data locality when possible).</li>
+<li>focus on CPU bound tasks (e.g. training Random Forests) while trying to limit disk / network access to a minimum.</li>
+<li>do not focus on HA / Fault Tolerance (yet).</li>
+<li>do not try to invent new set of high level programming abstractions (yet): use a low level programming model (IPython.parallel) to finely control the cluster elements and messages transfered and help identify what are the practical underlying constraints in distributed machine learning setting.</li>
+</ul>
+<p>项目主页：</p>
+<p><a href="https://pypi.python.org/pypi/pyrallel" target="_blank" rel="external">https://pypi.python.org/pypi/pyrallel</a></p>
+<p><a href="http://github.com/pydata/pyrallel" target="_blank" rel="external">http://github.com/pydata/pyrallel</a></p>
+<h1 id="Monte"><a href="#Monte" class="headerlink" title="Monte"></a>Monte</h1><p>Monte ( machine learning in pure Python)是一个纯Python机器学习库。它可以迅速构建神经网络、条件随机场、逻辑回归等模型，使用inline-C优化，极易使用和扩展。</p>
+<p>项目主页：</p>
+<p><a href="https://pypi.python.org/pypi/Monte" target="_blank" rel="external">https://pypi.python.org/pypi/Monte</a></p>
+<p><a href="http://montepython.sourceforge.net" target="_blank" rel="external">http://montepython.sourceforge.net</a></p>
+<h1 id="Orange"><a href="#Orange" class="headerlink" title="Orange"></a>Orange</h1><p>Orange 是一个基于组件的数据挖掘和机器学习软件套装，它的功能即友好，又很强大，快速而又多功能的可视化编程前端，以便浏览数据分析和可视化，基绑定了 Python以进行脚本开发。它包含了完整的一系列的组件以进行数据预处理，并提供了数据帐目，过渡，建模，模式评估和勘探的功能。其由C++ 和 Python开发，它的图形库是由跨平台的Qt框架开发。</p>
+<p>项目主页：</p>
+<p><a href="https://pypi.python.org/pypi/Orange/" target="_blank" rel="external">https://pypi.python.org/pypi/Orange/</a></p>
+<p><a href="http://orange.biolab.si/" target="_blank" rel="external">http://orange.biolab.si/</a></p>
+<h1 id="Theano"><a href="#Theano" class="headerlink" title="Theano"></a>Theano</h1><p>Theano 是一个 Python 库，用来定义、优化和模拟数学表达式计算，用于高效的解决多维数组的计算问题。Theano的特点：</p>
+<ul>
+<li>紧密集成Numpy</li>
+<li>高效的数据密集型GPU计算</li>
+<li>高效的符号微分运算</li>
+<li>高速和稳定的优化</li>
+<li>动态生成c代码</li>
+<li>广泛的单元测试和自我验证</li>
+</ul>
+<p>自2007年以来，Theano已被广泛应用于科学运算。theano使得构建深度学习模型更加容易，可以快速实现下列模型：</p>
+<ul>
+<li>Logistic Regression</li>
+<li>Multilayer perceptron</li>
+<li>Deep Convolutional Network</li>
+<li>Auto Encoders, Denoising Autoencoders</li>
+<li>Stacked Denoising Auto-Encoders</li>
+<li>Restricted Boltzmann Machines</li>
+<li>Deep Belief Networks</li>
+<li>HMC Sampling</li>
+<li>Contractive auto-encoders</li>
+</ul>
+<p>Theano，一位希腊美女，Croton最有权势的Milo的女儿，后来成为了毕达哥拉斯的老婆。</p>
+<p>项目主页：</p>
+<p><a href="http://deeplearning.net/tutorial/" target="_blank" rel="external">http://deeplearning.net/tutorial/</a></p>
+<p><a href="https://pypi.python.org/pypi/Theano" target="_blank" rel="external">https://pypi.python.org/pypi/Theano</a></p>
+<h1 id="Pylearn2"><a href="#Pylearn2" class="headerlink" title="Pylearn2"></a>Pylearn2</h1><p>Pylearn2建立在theano上，部分依赖scikit-learn上，目前Pylearn2正处于开发中，将可以处理向量、图像、视频等数据，提供MLP、RBM、SDA等深度学习模型。<br>Pylearn2的目标是：</p>
+<ul>
+<li>Researchers add features as they need them. We avoid getting bogged down by too much top-down planning in advance.</li>
+<li>A machine learning toolbox for easy scientific experimentation.</li>
+<li>All models/algorithms published by the LISA lab should have reference implementations in Pylearn2.</li>
+<li>Pylearn2 may wrap other libraries such as scikits.learn when this is practical</li>
+<li>Pylearn2 differs from scikits.learn in that Pylearn2 aims to provide great flexibility and make it possible for a researcher to do almost anything, while scikits.learn aims to work as a “black box” that can produce good results even if the user does not understand the implementation</li>
+<li>Dataset interface for vector, images, video, …</li>
+<li>Small framework for all what is needed for one normal MLP/RBM/SDA/Convolution experiments.</li>
+<li>Easy reuse of sub-component of Pylearn2.</li>
+<li>Using one sub-component of the library does not force you to use / learn to use all of the other sub-components if you choose not to.</li>
+<li>Support cross-platform serialization of learned models.</li>
+<li>Remain approachable enough to be used in the classroom (IFT6266 at the University of Montreal).</li>
+</ul>
+<p>项目主页：</p>
+<p><a href="http://deeplearning.net/software/pylearn2/" target="_blank" rel="external">http://deeplearning.net/software/pylearn2/</a><br><a href="https://github.com/lisa-lab/pylearn2" target="_blank" rel="external">https://github.com/lisa-lab/pylearn2</a></p>
+<blockquote>
+<p>还有其他的一些Python的机器学习库，如：<br>pmll(<a href="https://github.com/pavlov99/pmll" target="_blank" rel="external">https://github.com/pavlov99/pmll</a>)<br>pymining(<a href="https://github.com/bartdag/pymining" target="_blank" rel="external">https://github.com/bartdag/pymining</a>)<br>ease (<a href="https://github.com/edx/ease" target="_blank" rel="external">https://github.com/edx/ease</a>)<br>textmining(<a href="http://www.christianpeccei.com/textmining/" target="_blank" rel="external">http://www.christianpeccei.com/textmining/</a>)</p>
+<p>更多的机器学习库可通过<a href="https://pypi.python.org/pypi查找。" target="_blank" rel="external">https://pypi.python.org/pypi查找。</a></p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag">#Python</a>
+          
+            <a href="/tags/Deep-Learning/" rel="tag">#Deep-Learning</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/06/git-Command/" rel="next" title="Git的日常">
+                <i class="fa fa-chevron-left"></i> Git的日常
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/10/20160410-Say-Bye-Bye-to-Python-IDLE/" rel="prev" title="Say Bye Bye to Python IDLE">
+                Say Bye Bye to Python IDLE <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="Audric" />
+          <p class="site-author-name" itemprop="name">Audric</p>
+          <p class="site-description motion-element" itemprop="description">Nothing Serious</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/evinoca" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#scikit-learn"><span class="nav-number">1.</span> <span class="nav-text">scikit-learn</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NLTK"><span class="nav-number">2.</span> <span class="nav-text">NLTK</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mlpy"><span class="nav-number">3.</span> <span class="nav-text">Mlpy</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Shogun"><span class="nav-number">4.</span> <span class="nav-text">Shogun  </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MDP"><span class="nav-number">5.</span> <span class="nav-text">MDP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PyBrain"><span class="nav-number">6.</span> <span class="nav-text">PyBrain</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BigML"><span class="nav-number">7.</span> <span class="nav-text">BigML</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PyML"><span class="nav-number">8.</span> <span class="nav-text">PyML</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Milk"><span class="nav-number">9.</span> <span class="nav-text">Milk</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PyMVPA"><span class="nav-number">10.</span> <span class="nav-text">PyMVPA</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pattern"><span class="nav-number">11.</span> <span class="nav-text">Pattern</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pyrallel"><span class="nav-number">12.</span> <span class="nav-text">pyrallel</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Monte"><span class="nav-number">13.</span> <span class="nav-text">Monte</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Orange"><span class="nav-number">14.</span> <span class="nav-text">Orange</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Theano"><span class="nav-number">15.</span> <span class="nav-text">Theano</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pylearn2"><span class="nav-number">16.</span> <span class="nav-text">Pylearn2</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Audric</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/vendors/jquery-scrollintoview/jquery.scrollintoview.min.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'evinoca';
+      var disqus_identifier = '2016/04/07/20160407-Python-Deep-Study-Libs/';
+      var disqus_title = 'Python Deep Study Libs';
+      var disqus_url = 'http://evinoca.github.io/2016/04/07/20160407-Python-Deep-Study-Libs/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

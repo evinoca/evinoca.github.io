@@ -1,0 +1,655 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python,ptpython,IDE," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="背景最开始学习python的时候，还是用的sublime Text 2 试用版对sublime的插件很是挠头的我一直也就是再开一个cmd窗口来调试，出了问题全靠打log和print
+然后后来为了做GUI学wxpython，开始用eclipse+pydev，终于可以debug了也终于可以跟cmd说拜拜了
+再后来，由于有些库刚上手需要找个地儿练练手，加上写一些小工具也没啥难度只要拼拼凑凑就行了，我就又">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Say Bye Bye to Python IDLE">
+<meta property="og:url" content="http://evinoca.github.io/2016/04/10/20160410-Say-Bye-Bye-to-Python-IDLE/index.html">
+<meta property="og:site_name" content="Audric's Precious Toy Box">
+<meta property="og:description" content="背景最开始学习python的时候，还是用的sublime Text 2 试用版对sublime的插件很是挠头的我一直也就是再开一个cmd窗口来调试，出了问题全靠打log和print
+然后后来为了做GUI学wxpython，开始用eclipse+pydev，终于可以debug了也终于可以跟cmd说拜拜了
+再后来，由于有些库刚上手需要找个地儿练练手，加上写一些小工具也没啥难度只要拼拼凑凑就行了，我就又">
+<meta property="og:image" content="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160415_112402_745000.jpg">
+<meta property="og:image" content="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160415_111539_686000.jpg">
+<meta property="og:image" content="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160415_111223_200000.jpg">
+<meta property="og:image" content="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160415_111307_293000.jpg">
+<meta property="og:image" content="https://github.com/jonathanslenders/pyvim/raw/master/docs/images/welcome-screen.png">
+<meta property="og:image" content="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160415_123208_533000.jpg">
+<meta property="og:image" content="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160415_123300_489000.jpg">
+<meta property="og:image" content="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160415_111729_600000.jpg">
+<meta property="og:updated_time" content="2016-04-15T07:05:39.388Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Say Bye Bye to Python IDLE">
+<meta name="twitter:description" content="背景最开始学习python的时候，还是用的sublime Text 2 试用版对sublime的插件很是挠头的我一直也就是再开一个cmd窗口来调试，出了问题全靠打log和print
+然后后来为了做GUI学wxpython，开始用eclipse+pydev，终于可以debug了也终于可以跟cmd说拜拜了
+再后来，由于有些库刚上手需要找个地儿练练手，加上写一些小工具也没啥难度只要拼拼凑凑就行了，我就又">
+<meta name="twitter:image" content="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160415_112402_745000.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Say Bye Bye to Python IDLE | Audric's Precious Toy Box </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?625dfa09271d60f4da0f01277bee349e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Audric's Precious Toy Box</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">点滴记忆汇集成生活</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Say Bye Bye to Python IDLE
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-10T18:59:32+08:00" content="2016-04-10">
+              2016-04-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/10/20160410-Say-Bye-Bye-to-Python-IDLE/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/04/10/20160410-Say-Bye-Bye-to-Python-IDLE/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>最开始学习python的时候，还是用的sublime Text 2 试用版<br>对sublime的插件很是挠头的我一直也就是再开一个cmd窗口来调试，出了问题全靠打log和print</p>
+<h1 id="然后"><a href="#然后" class="headerlink" title="然后"></a>然后</h1><p>后来为了做GUI学wxpython，开始用eclipse+pydev，终于可以debug了也终于可以跟cmd说拜拜了</p>
+<p>再后来，由于有些库刚上手需要找个地儿练练手，加上写一些小工具也没啥难度只要拼拼凑凑就行了，我就又开始嫌弃eclipse这种慢吞吞的货，回到了最初的原点：python IDLE</p>
+<p><img src="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160415_112402_745000.jpg" alt=""></p>
+<p>好歹这个东西可以智能提示对吧，也能写点儿小函数试试手，写点儿小代码也是凑活能用的关键还是要快就行，对吧</p>
+<a id="more"></a>
+<p>但是费劲的是这玩意儿咋不能写一个行号呢…</p>
+<p><img src="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160415_111539_686000.jpg" alt=""></p>
+<p>每次出了问题，我就趴桌子上一行行数，实在不行再粘到notepad++里面看。</p>
+<p>所以这一次看到了这个ipython的大神新出的ptpython工具，我就把膝盖又送出去了。</p>
+<p><img src="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160415_111223_200000.jpg" alt=""></p>
+<p>在windows里面还能搞这么高大上的东西出来</p>
+<p><img src="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160415_111307_293000.jpg" alt=""></p>
+<blockquote>
+<p><a href="https://github.com/jonathanslenders/ptpython/" target="_blank" rel="external">Git: ptpython</a></p>
+</blockquote>
+<p>另外看到了pyVim这种看着就很厉害的东西</p>
+<p><img src="https://github.com/jonathanslenders/pyvim/raw/master/docs/images/welcome-screen.png" alt=""></p>
+<blockquote>
+<p><a href="https://github.com/jonathanslenders/pyvim" target="_blank" rel="external">Git: pyvim</a></p>
+</blockquote>
+<p>但是vim这种大神用的东西，我这种二把刀还是不要碰了，踏踏实实地该用啥用啥吧…</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>其实说到最后，还是理论联系实际，大项目用大家伙，小项目用小项目，顺手是最重要的.</p>
+<p>所以上班需要看Java还是用IDEA，顺带发现了Jetbrain新的Pycharm貌似很给力<br><img src="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160415_123208_533000.jpg" alt=""></p>
+<p>但是试了试debug还是不太习惯，另外这么久了真的还是习惯了eclipse，所以写python估计会一直保持用Eclipse+pydev吧<br><img src="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160415_123300_489000.jpg" alt=""></p>
+<p>看log用的notepad++，简单粗暴</p>
+<p>写blog需要预览markdown折腾了notepad++的插件，半天仍然没有什么简单办法，最后还是回到了看上去Atom上</p>
+<p><img src="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160415_111729_600000.jpg" alt=""></p>
+<p>写到最后吧，我也不知道自己想表达啥了，也可能就是想晒晒工作用的工具吧…</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag">#Python</a>
+          
+            <a href="/tags/ptpython/" rel="tag">#ptpython</a>
+          
+            <a href="/tags/IDE/" rel="tag">#IDE</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/07/20160407-Python-Deep-Study-Libs/" rel="next" title="Python Deep Study Libs">
+                <i class="fa fa-chevron-left"></i> Python Deep Study Libs
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/14/20160414-Collect-Shabby-Daily-Reports-over-SVN-with-Perl/" rel="prev" title="简单问题简单处理-Perl来汇总零散的Txt文件">
+                简单问题简单处理-Perl来汇总零散的Txt文件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="Audric" />
+          <p class="site-author-name" itemprop="name">Audric</p>
+          <p class="site-description motion-element" itemprop="description">Nothing Serious</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/evinoca" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#然后"><span class="nav-number">2.</span> <span class="nav-text">然后</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Audric</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/vendors/jquery-scrollintoview/jquery.scrollintoview.min.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'evinoca';
+      var disqus_identifier = '2016/04/10/20160410-Say-Bye-Bye-to-Python-IDLE/';
+      var disqus_title = 'Say Bye Bye to Python IDLE';
+      var disqus_url = 'http://evinoca.github.io/2016/04/10/20160410-Say-Bye-Bye-to-Python-IDLE/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

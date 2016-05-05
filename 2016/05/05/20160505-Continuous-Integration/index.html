@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="都是废话," />
+  <meta name="keywords" content="Tools," />
 
 
 
@@ -57,33 +57,19 @@
 
 
 
-<meta name="description" content="缘由最近稍微闲下来一点儿，有了一点儿时间来思考思考。
-人类一思考，上帝就开始乐。
-这个主要是因为大部分情况下，所谓的思考都是胡思乱想。
-恰如我在这里自说自话地吐槽。
-本科的时候我的专业是自动化，主修自动控制理论。当时觉得非常高大上，这些理论的东西在那些应用学科的同学中间简直就是空中楼阁，高不可攀。不过现在看来，那哪里是高不可攀，简直就是高出不胜寒，尤其当那些书本的知识只是用来应付考试的时候。
-临毕">
+<meta name="description" content="决定将持续集成加入自学列表中，下文来自http://docs.python-guide.org/en/latest/scenarios/ci/
+Continuous IntegrationWhy?Martin Fowler, who first wrote about Continuous Integration(short: CI) together with Kent Beck, descri">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一点点儿关于测试工程师的自我提升">
-<meta property="og:url" content="http://evinoca.github.io/2016/05/05/20160504-About-learning/index.html">
+<meta property="og:title" content="20160505-Continuous-Integration">
+<meta property="og:url" content="http://evinoca.github.io/2016/05/05/20160505-Continuous-Integration/index.html">
 <meta property="og:site_name" content="Audric's Precious Toy Box">
-<meta property="og:description" content="缘由最近稍微闲下来一点儿，有了一点儿时间来思考思考。
-人类一思考，上帝就开始乐。
-这个主要是因为大部分情况下，所谓的思考都是胡思乱想。
-恰如我在这里自说自话地吐槽。
-本科的时候我的专业是自动化，主修自动控制理论。当时觉得非常高大上，这些理论的东西在那些应用学科的同学中间简直就是空中楼阁，高不可攀。不过现在看来，那哪里是高不可攀，简直就是高出不胜寒，尤其当那些书本的知识只是用来应付考试的时候。
-临毕">
-<meta property="og:image" content="https://awesomewallpapers.files.wordpress.com/2016/04/jbsfz0r-imgur.jpg">
-<meta property="og:updated_time" content="2016-05-05T07:53:18.723Z">
+<meta property="og:description" content="决定将持续集成加入自学列表中，下文来自http://docs.python-guide.org/en/latest/scenarios/ci/
+Continuous IntegrationWhy?Martin Fowler, who first wrote about Continuous Integration(short: CI) together with Kent Beck, descri">
+<meta property="og:updated_time" content="2016-05-05T08:33:49.358Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一点点儿关于测试工程师的自我提升">
-<meta name="twitter:description" content="缘由最近稍微闲下来一点儿，有了一点儿时间来思考思考。
-人类一思考，上帝就开始乐。
-这个主要是因为大部分情况下，所谓的思考都是胡思乱想。
-恰如我在这里自说自话地吐槽。
-本科的时候我的专业是自动化，主修自动控制理论。当时觉得非常高大上，这些理论的东西在那些应用学科的同学中间简直就是空中楼阁，高不可攀。不过现在看来，那哪里是高不可攀，简直就是高出不胜寒，尤其当那些书本的知识只是用来应付考试的时候。
-临毕">
-<meta name="twitter:image" content="https://awesomewallpapers.files.wordpress.com/2016/04/jbsfz0r-imgur.jpg">
+<meta name="twitter:title" content="20160505-Continuous-Integration">
+<meta name="twitter:description" content="决定将持续集成加入自学列表中，下文来自http://docs.python-guide.org/en/latest/scenarios/ci/
+Continuous IntegrationWhy?Martin Fowler, who first wrote about Continuous Integration(short: CI) together with Kent Beck, descri">
 
 
 
@@ -101,7 +87,7 @@
   };
 </script>
 
-  <title> 一点点儿关于测试工程师的自我提升 | Audric's Precious Toy Box </title>
+  <title> 20160505-Continuous-Integration | Audric's Precious Toy Box </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -251,7 +237,7 @@
             
             
               
-                一点点儿关于测试工程师的自我提升
+                20160505-Continuous-Integration
               
             
           </h1>
@@ -263,7 +249,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-05T11:49:42+08:00" content="2016-05-05">
+            <time itemprop="dateCreated" datetime="2016-05-05T16:30:33+08:00" content="2016-05-05">
               2016-05-05
             </time>
           </span>
@@ -277,8 +263,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/胡言乱语/" itemprop="url" rel="index">
-                    <span itemprop="name">胡言乱语</span>
+                  <a href="/categories/Tools-Collector/" itemprop="url" rel="index">
+                    <span itemprop="name">Tools Collector</span>
                   </a>
                 </span>
 
@@ -293,8 +279,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/05/05/20160504-About-learning/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/05/20160504-About-learning/" itemprop="commentsCount"></span>
+                <a href="/2016/05/05/20160505-Continuous-Integration/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/05/20160505-Continuous-Integration/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -316,30 +302,25 @@
       
 
       
-        <h1 id="缘由"><a href="#缘由" class="headerlink" title="缘由"></a>缘由</h1><p>最近稍微闲下来一点儿，有了一点儿时间来思考思考。</p>
-<p>人类一思考，上帝就开始乐。</p>
-<p>这个主要是因为大部分情况下，所谓的思考都是胡思乱想。</p>
-<p>恰如我在这里自说自话地吐槽。</p>
-<p>本科的时候我的专业是自动化，主修自动控制理论。当时觉得非常高大上，这些理论的东西在那些应用学科的同学中间简直就是空中楼阁，高不可攀。不过现在看来，那哪里是高不可攀，简直就是高出不胜寒，尤其当那些书本的知识只是用来应付考试的时候。</p>
-<p>临毕业的时候，无法控制地开始恐慌，主要是因为突然发现自己对自己的未来根本没有任何计划，不知道自己想干什么、能干什么、擅长什么。当时万万没想到最后做了依靠代码过火的一个农民。</p>
-<p>后来第一份工作在一个央企做通信设备，短波超短波宽带通信设备。入职的时候，领导也没什么可说的，就挨个看着简历上的专业来分配工作。我成绩一般般，没有编码基础，虽然深刻地表达了想做开发，依然被分配到了测试部门。当时的感觉就是最好的人去做驱动，好的人做协议，还有一些做OM，剩下的一股脑被扔进了测试。不难看出测试这个行当在当时真是…</p>
-<p>就这样，一不小心，我就变成了测试工程师，一干就是这么好几年。</p>
-<p><img src="https://awesomewallpapers.files.wordpress.com/2016/04/jbsfz0r-imgur.jpg" alt=""></p>
-<a id="more"></a>
-<p>说起来，今年已经是在测试这个行当混的第七年了。按说应该有一些沉淀，但是每想到这个事儿就只能拍一下脑门，然后从心底涌出来一阵不好意思。</p>
-<p>刚干测试的工作内容相当驳杂，学自动化的跑来做通信设备，除了在学校知道一点儿信号系统和傅里叶变换还暂时留在脑子里，其他真的是什么都不会。天天就跟着老员工一起做，别人做什么自己做什么。那时候主要的被测目标就是电台，公司不大就我们这么些人，基本上所有能测的东西都需要测。</p>
-<p>现在想起来我还是很庆幸第一份工作是这样的。</p>
-<p>那时候一个项目有二三十个人，一般有一个底层驱动开发，一个顶层的OM开发，一个高层协议，一个做DSP，这是软件开发，还有硬件的兄弟来做基带板和射频模块，生产的几个兄弟来安装。另外还有一两个市场部门的同事来跟进外部需求，一个项目经理兼职算法仿真，一个项目管理来串联大家，剩下的还有2~4个测试。</p>
-<p>我理解这个组织结构应该就是所谓的弱矩阵结构了吧？</p>
-<p>这个组织结构下，大家干活儿效率还是很高的，因为天天都蹲在实验室里，很快就都打成一片。</p>
-<p>之前说的能测的都得测，一点儿不开玩笑。一个电台的prototype出来之后，我们要做的事儿有：</p>
+        <p>决定将持续集成加入自学列表中，下文来自<a href="http://docs.python-guide.org/en/latest/scenarios/ci/" target="_blank" rel="external">http://docs.python-guide.org/en/latest/scenarios/ci/</a></p>
+<h1 id="Continuous-Integration"><a href="#Continuous-Integration" class="headerlink" title="Continuous Integration"></a>Continuous Integration</h1><h2 id="Why"><a href="#Why" class="headerlink" title="Why?"></a>Why?</h2><p>Martin Fowler, who first wrote about <a href="http://martinfowler.com/articles/continuousIntegration.html" target="_blank" rel="external">Continuous Integration</a>(short: CI) together with Kent Beck, describes the CI as follows:</p>
+<blockquote>
+<p>Continuous Integration is a software development practice where members ofa team integrate their work frequently, usually each person integrates atleast daily - leading to multiple integrations per day. Each integration isverified by an automated build (including test) to detect integration errorsas quickly as possible. Many teams find that this approach leads tosignificantly reduced integration problems and allows a team to developcohesive software more rapidly.</p>
+</blockquote>
+<h2 id="Jenkins"><a href="#Jenkins" class="headerlink" title="Jenkins"></a>Jenkins</h2><p><a href="http://jenkins-ci.org" target="_blank" rel="external">Jenkins CI</a> is an extensible continuous integrationengine. Use it.</p>
+<h2 id="Buildbot"><a href="#Buildbot" class="headerlink" title="Buildbot"></a>Buildbot</h2><p><a href="http://docs.buildbot.net/current/" target="_blank" rel="external">Buildbot</a> is a Python system toautomate the compile/test cycle to validate code changes.</p>
+<h2 id="Tox"><a href="#Tox" class="headerlink" title="Tox"></a>Tox</h2><p><a href="http://tox.readthedocs.org/en/latest/" target="_blank" rel="external">tox</a> is an automation tool providingpackaging, testing and deployment of Python software right from the console orCI server. It is a generic virtualenv management and test command line toolwhich provides the following features:</p>
 <ul>
-<li><p><strong>冒烟测试</strong></p>
-<p>对于</p>
-<p>​</p>
-</li>
+<li>Checking that packages install correctly with different Python versions andinterpreters</li>
+<li>Running tests in each of the environments, configuring your test tool ofchoice</li>
+<li>Acting as a front-end to Continuous Integration servers, reducing boilerplateand merging CI and shell-based testing.</li>
 </ul>
-<h1 id="发现了问题就有了学习动力"><a href="#发现了问题就有了学习动力" class="headerlink" title="发现了问题就有了学习动力"></a>发现了问题就有了学习动力</h1><h1 id="知识储备"><a href="#知识储备" class="headerlink" title="知识储备"></a>知识储备</h1><h2 id="WCDMA-amp-LTE协议"><a href="#WCDMA-amp-LTE协议" class="headerlink" title="WCDMA&amp;LTE协议"></a>WCDMA&amp;LTE协议</h2><h1 id="测试工具"><a href="#测试工具" class="headerlink" title="测试工具"></a>测试工具</h1><h2 id="自动测试"><a href="#自动测试" class="headerlink" title="自动测试"></a>自动测试</h2><h2 id="持续集成"><a href="#持续集成" class="headerlink" title="持续集成"></a>持续集成</h2><h2 id="协同工作"><a href="#协同工作" class="headerlink" title="协同工作"></a>协同工作</h2><h2 id="所谓敏捷"><a href="#所谓敏捷" class="headerlink" title="所谓敏捷"></a>所谓敏捷</h2>
+<h2 id="Travis-CI"><a href="#Travis-CI" class="headerlink" title="Travis-CI"></a>Travis-CI</h2><p><a href="https://travis-ci.org/" target="_blank" rel="external">Travis-CI</a> is a distributed CI server which buildstests for open source projects for free. It provides multiple workers to runPython tests on and seamlessly integrates with GitHub. You can even have itcomment on your Pull Requests whether this particular changeset breaks thebuild or not. So if you are hosting your code on GitHub, travis-ci is a greatand easy way to get started with Continuous Integration.</p>
+<p>In order to get started, add a <code>.travis.yml</code> file to your repository withthis example content:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">language: python</span><br><span class="line">python:</span><br><span class="line">  - &quot;2.6&quot;</span><br><span class="line">  - &quot;2.7&quot;</span><br><span class="line">  - &quot;3.2&quot;</span><br><span class="line">  - &quot;3.3&quot;</span><br><span class="line"># command to install dependencies</span><br><span class="line">script: python tests/test_all_of_the_units.py</span><br><span class="line">branches:</span><br><span class="line">  only:</span><br><span class="line">    - master</span><br></pre></td></tr></table></figure>
+<p>This will get your project tested on all the listed Python versions byrunning the given script, and will only build the master branch. There are alot more options you can enable, like notifications, before and after stepsand much more. The <a href="http://about.travis-ci.org/docs/" target="_blank" rel="external">travis-ci docs</a>explain all of these options, and are very thorough.</p>
+<p>In order to activate testing for your project, go to <a href="https://travis-ci.org/" target="_blank" rel="external">the travis-ci site</a>and login with your GitHub account. Then activate your project in yourprofile settings and you’re ready to go. From now on, your project’s testswill be run on every push to GitHub.</p>
+
       
     </div>
 
@@ -353,7 +334,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/都是废话/" rel="tag">#都是废话</a>
+            <a href="/tags/Tools/" rel="tag">#Tools</a>
           
         </div>
       
@@ -525,7 +506,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#缘由"><span class="nav-number">1.</span> <span class="nav-text">缘由</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#发现了问题就有了学习动力"><span class="nav-number">2.</span> <span class="nav-text">发现了问题就有了学习动力</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#知识储备"><span class="nav-number">3.</span> <span class="nav-text">知识储备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#WCDMA-amp-LTE协议"><span class="nav-number">3.1.</span> <span class="nav-text">WCDMA&LTE协议</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试工具"><span class="nav-number">4.</span> <span class="nav-text">测试工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#自动测试"><span class="nav-number">4.1.</span> <span class="nav-text">自动测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#持续集成"><span class="nav-number">4.2.</span> <span class="nav-text">持续集成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协同工作"><span class="nav-number">4.3.</span> <span class="nav-text">协同工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#所谓敏捷"><span class="nav-number">4.4.</span> <span class="nav-text">所谓敏捷</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Continuous-Integration"><span class="nav-number">1.</span> <span class="nav-text">Continuous Integration</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Why"><span class="nav-number">1.1.</span> <span class="nav-text">Why?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jenkins"><span class="nav-number">1.2.</span> <span class="nav-text">Jenkins</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Buildbot"><span class="nav-number">1.3.</span> <span class="nav-text">Buildbot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tox"><span class="nav-number">1.4.</span> <span class="nav-text">Tox</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Travis-CI"><span class="nav-number">1.5.</span> <span class="nav-text">Travis-CI</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
@@ -634,9 +615,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'evinoca';
-      var disqus_identifier = '2016/05/05/20160504-About-learning/';
-      var disqus_title = '一点点儿关于测试工程师的自我提升';
-      var disqus_url = 'http://evinoca.github.io/2016/05/05/20160504-About-learning/';
+      var disqus_identifier = '2016/05/05/20160505-Continuous-Integration/';
+      var disqus_title = '20160505-Continuous-Integration';
+      var disqus_url = 'http://evinoca.github.io/2016/05/05/20160505-Continuous-Integration/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');

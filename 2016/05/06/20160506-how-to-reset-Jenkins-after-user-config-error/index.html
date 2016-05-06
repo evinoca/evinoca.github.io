@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Jenkins,Tips," />
 
 
 
@@ -57,15 +57,40 @@
 
 
 
-<meta name="description" content="Nothing Serious">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Audric's Precious Toy Box">
-<meta property="og:url" content="http://evinoca.github.io/tags/hexo/index.html">
+<meta name="description" content="说搞CI就开始搞了，折腾了Python+Jenkins环境还是没搞明白，还把账号安全矩阵给搞坏了…
+网上找到的补救方法特地留下一份备用
+如下：
+
+找到.jenkins/config.xml文件：
+替换为：
+1、
+这个权限对应“任何用户可以做任何事(没有任何限制)”
+2、class=”hudson.security.FullControlOnceLoggedInAuthorizationStrate">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jenkins配置权限不对导致无法登陆的重置方法">
+<meta property="og:url" content="http://evinoca.github.io/2016/05/06/20160506-how-to-reset-Jenkins-after-user-config-error/index.html">
 <meta property="og:site_name" content="Audric's Precious Toy Box">
-<meta property="og:description" content="Nothing Serious">
+<meta property="og:description" content="说搞CI就开始搞了，折腾了Python+Jenkins环境还是没搞明白，还把账号安全矩阵给搞坏了…
+网上找到的补救方法特地留下一份备用
+如下：
+
+找到.jenkins/config.xml文件：
+替换为：
+1、
+这个权限对应“任何用户可以做任何事(没有任何限制)”
+2、class=”hudson.security.FullControlOnceLoggedInAuthorizationStrate">
+<meta property="og:updated_time" content="2016-05-06T07:21:43.435Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Audric's Precious Toy Box">
-<meta name="twitter:description" content="Nothing Serious">
+<meta name="twitter:title" content="Jenkins配置权限不对导致无法登陆的重置方法">
+<meta name="twitter:description" content="说搞CI就开始搞了，折腾了Python+Jenkins环境还是没搞明白，还把账号安全矩阵给搞坏了…
+网上找到的补救方法特地留下一份备用
+如下：
+
+找到.jenkins/config.xml文件：
+替换为：
+1、
+这个权限对应“任何用户可以做任何事(没有任何限制)”
+2、class=”hudson.security.FullControlOnceLoggedInAuthorizationStrate">
 
 
 
@@ -83,7 +108,7 @@
   };
 </script>
 
-  <title> 标签: hexo | Audric's Precious Toy Box </title>
+  <title> Jenkins配置权限不对导致无法登陆的重置方法 | Audric's Precious Toy Box </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -114,7 +139,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -212,46 +237,182 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        hexo
-        <small>标签</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Jenkins配置权限不对导致无法登陆的重置方法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-06T15:16:30+08:00" content="2016-05-06">
+              2016-05-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Tools-Collector/" itemprop="url" rel="index">
+                    <span itemprop="name">Tools Collector</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/06/20160506-how-to-reset-Jenkins-after-user-config-error/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/06/20160506-how-to-reset-Jenkins-after-user-config-error/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <p>说搞CI就开始搞了，折腾了Python+Jenkins环境还是没搞明白，还把账号安全矩阵给搞坏了…</p>
+<p>网上找到的补救方法特地留下一份备用</p>
+<p>如下：</p>
+<blockquote>
+<p>找到.jenkins/config.xml文件：</p>
+<p>替换为：</p>
+<p>1、<authorizationstrategy class="hudson.security.AuthorizationStrategy$Unsecured"></authorizationstrategy></p>
+<p>这个权限对应“任何用户可以做任何事(没有任何限制)”</p>
+<p>2、<authorizationstrategy>class=”hudson.security.FullControlOnceLoggedInAuthorizationStrategy”/&gt;</authorizationstrategy></p>
+<p>这个权限对应“登录用户可以做任何事”</p>
+<p>3、<authorizationstrategy class="hudson.security.GlobalMatrixAuthorizationStrategy"></authorizationstrategy></p>
+<pre><code>&lt;permission&gt;hudson.model.Hudson.Administer:test&lt;/permission&gt;
+</code></pre>  <permission>hudson.scm.SCM.Tag:test</permission>
 
-      <h1 class="post-title">
+<p></p>
+<p>这个权限对应 test用户可以是管理员、打标签权限。</p>
+<p>2、如果要配置连接微软ldap，需要安装Active Directory plugin。</p>
+<p>比如配置：</p>
+<p>Domain Name: XXXX.net</p>
+<p>Domain controller:192.168.0.112:3268</p>
+<p>LDAP 全局目录：TCP端口3268 (如果DC保持着全局目录的操纵权)</p>
+<p>3、默认匿名用户是可以查看所有项目的，就算配置了“登陆用户可以做任何事情”</p>
+<p>如果想禁止匿名使用，可以使用“安全矩阵”，</p>
+<p>选择安全矩阵后，就会出现“匿名用户”用户，全部去掉勾选，则无任何权限了。</p>
+<p>其中overall中的Administer代表全部权限，可以设置为管理员.</p>
+<p>权限配置：<a href="http://hi.baidu.com/nesaynever/blog/item/9f34a1c80a6454377d3e6f65.html" target="_blank" rel="external">http://hi.baidu.com/nesaynever/blog/item/9f34a1c80a6454377d3e6f65.html</a></p>
+<p>其中：Overall是全局权限，slave是集群权限，job,run,view,scm是业务权限。</p>
+<p>其中overall中的read要勾选，否则用户登陆后什么也看不到。</p>
+<p>overall:</p>
+<p>  Administer：系统管理员权限</p>
+<p>  read:浏览框架</p>
+<p>job:</p>
+<p>  read:查看job</p>
+<p>  build:执行构建</p>
+<p>  cancel:取消构建</p>
+<p>run:</p>
+<p>  Delete:删除某次构建</p>
+<p>  Update:编辑某次构建信息</p>
+<p>SCM:</p>
+<p>  Tag:为某次构建在svm上打标签。</p>
+<p>转自：<a href="http://blog.sina.com.cn/s/blog_56d8ea90010147z3.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_56d8ea90010147z3.html</a></p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2016/03/30/20160330-碎碎念/" itemprop="url">
-              
-                <span itemprop="name">碎碎念</span>
-              
-            </a>
-        
-      </h1>
+      
+    </div>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-03-30T12:26:52+08:00"
-              content="2016-03-30" >
-          03-30
-        </time>
-      </div>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Jenkins/" rel="tag">#Jenkins</a>
+          
+            <a href="/tags/Tips/" rel="tag">#Tips</a>
+          
+        </div>
+      
 
-    </header>
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/05/20160505-Continuous-Integration/" rel="next" title="Continuous Integration">
+                <i class="fa fa-chevron-left"></i> Continuous Integration
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -259,6 +420,17 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -278,8 +450,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/default_avatar.jpg"
@@ -366,6 +547,17 @@
       </section>
 
       
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
 
     </div>
   </aside>
@@ -449,6 +641,11 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/vendors/jquery-scrollintoview/jquery.scrollintoview.min.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
 
   
 
@@ -465,9 +662,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'evinoca';
-      var disqus_identifier = 'tags/hexo/index.html';
-      var disqus_title = '';
-      var disqus_url = '';
+      var disqus_identifier = '2016/05/06/20160506-how-to-reset-Jenkins-after-user-config-error/';
+      var disqus_title = 'Jenkins配置权限不对导致无法登陆的重置方法';
+      var disqus_url = 'http://evinoca.github.io/2016/05/06/20160506-how-to-reset-Jenkins-after-user-config-error/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
@@ -478,6 +675,8 @@
       }
 
       run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
       
     </script>
   

@@ -236,6 +236,130 @@
             
               
                 
+                <a class="post-title-link" href="/2016/05/11/20160512-Python-Decorator/" itemprop="url">
+                  20160512 Python Decorator
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-11T18:51:36+08:00" content="2016-05-11">
+              2016-05-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/11/20160512-Python-Decorator/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/11/20160512-Python-Decorator/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>最近看了几个文章，打算把python的装饰器生成器迭代器几个概念好好梳理一下</p>
+<p><a href="http://pythoncentral.io/python-decorators-overview/">Python Decorators Overview</a></p>
+<p><a href="http://www.cnblogs.com/huxi/archive/2011/03/01/1967600.html">Python装饰器与面向切面编程</a></p>
+<p><a href="http://www.cnblogs.com/Security-Darren/p/4168310.html">Python——functools</a></p>
+<h1 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h1><p>装饰器原来我一直感觉是一个高大上的玩意儿，一直也没有好好研究过。<br>不过研究了一下其实还是蛮简单的。<br>首先下面是一个最简单的例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decorator</span><span class="params">(fn)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">(n)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> fn(n) + <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"> </span><br><span class="line"><span class="meta">@decorator</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> n + <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> f(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>3
+</code></pre><p>在这里面decorator就是一个装饰器，调用f()的时候相当于执行了decorator（f()）<br>f(n)的输出为n+1，在经过装饰器之后在decorator的inner()中又+1了一次，所以输出是1+1+1=3</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/05/11/20160512-Python-Decorator/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/05/10/20160510-跟着freeCodeCamp学前端-Javascript基础/" itemprop="url">
                   跟着freeCodeCamp学前端-Javascript基础
                 </a>
@@ -1362,136 +1486,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/05/20160405-伸手传图调外链-七牛withPython/" itemprop="url">
-                  伸手传图调外链 七牛withPython
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-05T15:44:47+08:00" content="2016-04-05">
-              2016-04-05
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/05/20160405-伸手传图调外链-七牛withPython/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/04/05/20160405-伸手传图调外链-七牛withPython/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>懒人创造世界嘛<br>上传图片到图床再找外链太累人了，还是写一个脚本吧</p>
-<p>之前看mac上是有大神写了脚本的，直接检查剪贴板是否有图片，如果有就调用七牛的SDK上传到对应的个人存储空间里，并返回外链地址存在剪贴板，听上去非常地美好。</p>
-<p>七牛的API之前看到是有支持Python的SDK的，那还不是信手拈来吗，嘿嘿嘿</p>
-<h1 id="初步构思："><a href="#初步构思：" class="headerlink" title="初步构思："></a>初步构思：</h1><ol>
-<li>调用Win32Api检查剪贴板是否有图片</li>
-<li>调用SDK上传</li>
-<li>记录返回外链</li>
-<li>调用Win32Api保存外链地址到剪贴板，最好就是Markdown格式的</li>
-</ol>
-<h1 id="可能遇到的困难"><a href="#可能遇到的困难" class="headerlink" title="可能遇到的困难"></a>可能遇到的困难</h1><ol>
-<li>Win32Api并没有接触过剪贴板什么的，不行也可以用上传文件的方式来work around</li>
-<li>得装一个winHotKey还是什么的来触发脚本</li>
-</ol>
-<p>有问题没啥，一个一个来解决嘛，先来试试再说。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/04/05/20160405-伸手传图调外链-七牛withPython/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1537,7 +1531,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-count">16</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

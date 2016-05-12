@@ -236,6 +236,137 @@
             
               
                 
+                <a class="post-title-link" href="/2016/05/12/20160512-Python-Generator/" itemprop="url">
+                  Python Generator
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-12T14:50:41+08:00" content="2016-05-12">
+              2016-05-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/12/20160512-Python-Generator/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/12/20160512-Python-Generator/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>说完了装饰器，今儿干脆也学习一下生成器吧..</p>
+<blockquote>
+<p><strong>生成器</strong>是这样一个函数，它记住上一次返回时在函数体中的位置。对生成器函数的第二次（或第 n 次）调用跳转至该函数中间，而上次调用的所有局部变量都保持不变。</p>
+<p>生成器不仅“记住”了它数据状态；生成器还“记住”了它在流控制构造（在命令式编程中，这种构造不只是数据值）中的位置。</p>
+<p><strong>生成器的特点</strong>：</p>
+<pre><code>生成器是一个函数，而且函数的参数都会保留。
+
+迭代到下一次的调用时，所使用的参数都是第一次所保留下的，即是说，在整个所有函数调用的参数都是第一次所调用时保留的，而不是新创建的
+</code></pre><p>yield就是这样的一个生成器。</p>
+<p><strong>yield 生成器的运行机制：</strong></p>
+<p>当你问生成器要一个数时，生成器会执行，直至出现 yield 语句，生成器把 </p>
+<pre><code>yield 的参数给你，之后生成器就不会往下继续运行。 当你问他要下一个数时，他会从上次的状态。开始运行，直至出现yield语句，把参数给你，之后停下。如此反复直至退出函数。（以上关于yield的描述，在后面列举一个简单的例子来解释这段话）
+</code></pre><p><strong>yield的使用</strong>：</p>
+<p>在python中，当你定义一个函数，使用了yield关键字时，这个函数就是一个生成器，它的执行会和其他普通的函数有很多不同，函数返回的是一个对象，而不是你平常所用return语句那样，能得到结果值。如果想取得值，那得调用next()函数，如：</p>
+</blockquote>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/05/12/20160512-Python-Generator/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/05/11/20160512-Python-Decorator/" itemprop="url">
                   Python Decorator
                 </a>
@@ -1361,131 +1492,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/05/20160405-How-To-Write-A-Test-Strategy/" itemprop="url">
-                  测试策略书写大纲
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-05T15:52:15+08:00" content="2016-04-05">
-              2016-04-05
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Test-Theory/" itemprop="url" rel="index">
-                    <span itemprop="name">Test Theory</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/05/20160405-How-To-Write-A-Test-Strategy/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/04/05/20160405-How-To-Write-A-Test-Strategy/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>作为一个声称快节奏的互联网公司上班的测试员儿，我公司的大部分测试工程师都是不需要写文档的。</p>
-<p>我刚上班的时候，第一个任职的公司是一个国企，RD的架构是典型的弱矩阵组织结构+瀑布型研发流程。这是实打实的传统企业模式，纵向管理起来非常方便，缺点就是横向沟通起来容易扯皮…如何把责任和工作范围确定下来主要靠的是QA（我们那里叫做质量部）指定的项目流程和大量的文档。</p>
-<p>当年文档基本上占据了我工作中的一半的时间，实在是头疼。但是现在没有文档了之后，我却开始怀念起文档的好处。<br>责任清楚，需求明确，任何人都不可能跳过QA来修改需求。现在互联网企业天天拿敏捷说事儿，恨不得一天搞10个迭代，一个迭代换一套文案真是让我想撞墙。</p>
-<p>文档海海多，主要是测试策略、测试大纲和测试计划，活儿干完还有一系列的各个测试阶段报告和验收报告。<br>其中大部分文档都是围绕测试策略来做的，测试策略基本规定了测试中所需要的大部分内容和计划。</p>
-<p>所以虽然暂时不需要写了，但是当我看到一篇关于如何写测试策略的文章，还是要偷偷摸摸留下来。<br>主要是看上了作者给的这张图…以后有需要再写的时候就可以信手拈来了。</p>
-<hr>
-<p>原文: <a href="http://www.cnblogs.com/AlwinXu/p/5384671.html">如何制定测试策略</a></p>
-<p>测试策略是描述测试项目和测试任务之间的关系。它用来说明要测什么，如何测，如何协调测试资源和测试时间等。测试策略制定的是否合理高效会对测试项目的进度产生很大的影响。那么，如何制定一个好的测试策略并且能防止遗漏呢？一个好的测试策略又包含哪些方面呢？下面我给出一个平时经常使用的一个模板供大家参考。</p>
-<p><img src="http://7xsfv0.com1.z0.glb.clouddn.com/54848-20160412215902941-251092752.jpg" alt="Test Strategy"></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/04/05/20160405-How-To-Write-A-Test-Strategy/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1531,7 +1537,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-count">17</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

@@ -1,0 +1,756 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java,运维," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="背景刚才研究了一下系统监控的事儿，趁着还热乎先记一下..
+在上一篇转来的七个JAVA的系统监控工具里面，我看了半天，貌似Sensu这个比较符合现在的需求
+不管三七二十一，趁手头还有点儿时间，先装上试试再说
+Sensu官方很贴心的给出了5分钟快速上手说明，跟着做就是了，走起
+
+Ref: The five minute Sensu Install">
+<meta property="og:type" content="article">
+<meta property="og:title" content="现学现卖 Sensu&Uchiwa 快速上手">
+<meta property="og:url" content="http://evinoca.github.io/2016/05/17/20160517-quick-start-on-Sensu/index.html">
+<meta property="og:site_name" content="Audric's Precious Toy Box">
+<meta property="og:description" content="背景刚才研究了一下系统监控的事儿，趁着还热乎先记一下..
+在上一篇转来的七个JAVA的系统监控工具里面，我看了半天，貌似Sensu这个比较符合现在的需求
+不管三七二十一，趁手头还有点儿时间，先装上试试再说
+Sensu官方很贴心的给出了5分钟快速上手说明，跟着做就是了，走起
+
+Ref: The five minute Sensu Install">
+<meta property="og:image" content="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160517_185648_614000.jpg">
+<meta property="og:image" content="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160517_190610_615000.jpg">
+<meta property="og:image" content="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160517_190555_073000.jpg">
+<meta property="og:image" content="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160517_191148_013000.jpg">
+<meta property="og:image" content="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160517_191921_939000.jpg">
+<meta property="og:image" content="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160517_192101_273000.jpg">
+<meta property="og:image" content="https://sensuapp.org/docs/0.23/img/five-minute-dashboard-2-7b851c59.png">
+<meta property="og:image" content="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160517_190915_877000.jpg">
+<meta property="og:image" content="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160518_103153_849000.jpg">
+<meta property="og:updated_time" content="2016-05-18T02:37:19.285Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="现学现卖 Sensu&Uchiwa 快速上手">
+<meta name="twitter:description" content="背景刚才研究了一下系统监控的事儿，趁着还热乎先记一下..
+在上一篇转来的七个JAVA的系统监控工具里面，我看了半天，貌似Sensu这个比较符合现在的需求
+不管三七二十一，趁手头还有点儿时间，先装上试试再说
+Sensu官方很贴心的给出了5分钟快速上手说明，跟着做就是了，走起
+
+Ref: The five minute Sensu Install">
+<meta name="twitter:image" content="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160517_185648_614000.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 现学现卖 Sensu&Uchiwa 快速上手 | Audric's Precious Toy Box </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?625dfa09271d60f4da0f01277bee349e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Audric's Precious Toy Box</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">一个测试工程师的自我修养</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                现学现卖 Sensu&Uchiwa 快速上手
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-17T21:53:49+08:00" content="2016-05-17">
+              2016-05-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Tools-Collector/" itemprop="url" rel="index">
+                    <span itemprop="name">Tools Collector</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/17/20160517-quick-start-on-Sensu/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/17/20160517-quick-start-on-Sensu/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>刚才研究了一下系统监控的事儿，趁着还热乎先记一下..</p>
+<p>在上一篇转来的<a href="http://evinoca.github.io/2016/05/17/20160517-7-monitor-Tools/">七个JAVA的系统监控工具</a>里面，我看了半天，貌似Sensu这个比较符合现在的需求</p>
+<p>不管三七二十一，趁手头还有点儿时间，先装上试试再说</p>
+<p>Sensu官方很贴心的给出了5分钟快速上手说明，跟着做就是了，走起</p>
+<p><img src="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160517_185648_614000.jpg" alt="Sensu Quick Start"></p>
+<p>Ref: <a href="https://sensuapp.org/docs/latest/the-five-minute-install" target="_blank" rel="external">The five minute Sensu Install</a></p>
+<a id="more"></a>
+<h2 id="Linux虚拟机"><a href="#Linux虚拟机" class="headerlink" title="Linux虚拟机"></a>Linux虚拟机</h2><p>按照要求，第一件事儿就是找一个ubuntu的虚拟机来，正好有同事刚下了14.04的镜像，直接拿来用</p>
+<p>虚拟机软件我用的是VMware Workstation 12 Player ，只要不用做商业用途就是免费。</p>
+<p><a href="http://www.vmware.com/products/player/playerpro-evaluation.html" target="_blank" rel="external">Download VMware Workstation Player</a></p>
+<p><img src="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160517_190610_615000.jpg" alt=""></p>
+<p>我现在这算是开发用吧…直接选择新建虚拟机</p>
+<p><img src="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160517_190555_073000.jpg" alt=""></p>
+<p>等待10分钟左右，就有了一个干净的环境，工作天天被环境挣得挠墙，每次看到一个干净的环境都感觉像是走到了森林里一样忍不住想永远留在这里。</p>
+<h2 id="Sensu-安装"><a href="#Sensu-安装" class="headerlink" title="Sensu 安装"></a>Sensu 安装</h2><p><img src="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160517_191148_013000.jpg" alt=""></p>
+<p>可是美好的时间总是短暂的是不，点击左上角那个图标或者Alt+F1+回车召唤出Ubuntu版的spotlight，然后互换Terminal出来</p>
+<p><img src="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160517_191921_939000.jpg" alt=""></p>
+<p>从这里开始，计时五分钟~</p>
+<ol>
+<li>安装Sensu源</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://sensuapp.org/install.sh</span><br><span class="line">sudo bash install.sh</span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+<p>bash脚本的时候，实际上就是安装两套软件源到本地linux的源文件里</p>
+<p>Core software我们一定是要点yes的</p>
+<p><img src="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160517_192101_273000.jpg" alt=""></p>
+<p>后面问</p>
+<p>Do you want to install the Sensu Enterprise software repositories? (y/N): </p>
+<p>的时候就点no就可以了，因为如果点了yes会要求填写企业版用户名密码来校验用户,这个自然没有</p>
+<ol>
+<li><p>安装第三方程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get -y install redis-server curl jq</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置Redis默认参数并启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo update-rc.d redis-server defaults</span><br><span class="line">sudo /etc/init.d/redis-server start</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装sensu</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install sensu</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下载sensu默认配置config.json</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo wget -O /etc/sensu/config.json https://sensuapp.org/docs/0.23/files/simple-sensu-config.json</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下载客户端配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo wget -O /etc/sensu/conf.d/client.json https://sensuapp.org/docs/0.23/files/simple-client-config.json</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动sensu服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/sensu-server start</span><br><span class="line">sudo /etc/init.d/sensu-api start</span><br><span class="line">sudo /etc/init.d/sensu-client start</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试api服务状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -s http://127.0.0.1:4567/clients | jq .</span><br></pre></td></tr></table></figure>
+<p>如果返回值如下就是ok了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ curl -s http://127.0.0.1:4567/clients | jq .</span><br><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;timestamp&quot;: 1458625739,</span><br><span class="line">    &quot;version&quot;: &quot;0.23.0&quot;,</span><br><span class="line">    &quot;socket&quot;: &#123;</span><br><span class="line">      &quot;port&quot;: 3030,</span><br><span class="line">      &quot;bind&quot;: &quot;127.0.0.1&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;subscriptions&quot;: [</span><br><span class="line">      &quot;dev&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;environment&quot;: &quot;development&quot;,</span><br><span class="line">    &quot;address&quot;: &quot;127.0.0.1&quot;,</span><br><span class="line">    &quot;name&quot;: &quot;client-01&quot;</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>然后一个基本的sensu服务就ok了</p>
+<h2 id="Web-UI-Uchiwa"><a href="#Web-UI-Uchiwa" class="headerlink" title="Web UI- Uchiwa"></a>Web UI- Uchiwa</h2><p>当然还需要一个Web管理页面，Sensu官方只给企业版提供了页面，像是这个样儿：</p>
+<p><img src="https://sensuapp.org/docs/0.23/img/five-minute-dashboard-2-7b851c59.png" alt="img"></p>
+<p>但是对于广大的免费玩家，官方还给了一个代替品 Uchiwa（这名字什么鬼…）界面如下：</p>
+<p>真是良心官方啊</p>
+<p><img src="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160517_190915_877000.jpg" alt=""></p>
+<p>地址在这里：<a href="https://github.com/sensu/uchiwa" target="_blank" rel="external">uchiwa</a></p>
+<p>安装起来也很简单：</p>
+<ol>
+<li><p>安装goLang环境</p>
+</li>
+<li><p>配置Gopath和环境变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir $HOME/go &amp;&amp; export GOPATH=$HOME/go</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下载godep</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get github.com/tools/godep</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下载uchiwa源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get github.com/sensu/uchiwa &amp;&amp; cd $GOPATH/src/github.com/sensu/uchiwa</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装依赖库</p>
+<p>​<br>普通账号: <code>npm install --production</code><br>Linux管理员账号: <code>npm install --production --unsafe-perm</code></p>
+</li>
+<li><p>将$GoPath/src/github.com/sensu/uchiwa/config.json.example改名为config.json</p>
+</li>
+<li><p>修改uchiwa配置config.json将uchiwa指向刚才搭好的sensu服务地址</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "sensu": [</span><br><span class="line">    &#123;#修改一组地址和端口</span><br><span class="line">      "name": "Test Site",</span><br><span class="line">      "host": "10.10.3.234",</span><br><span class="line">      "port": 4567</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;#这一组暂时可以删掉，也可以保留反正显示不出来</span><br><span class="line">      "name": "Site 2",</span><br><span class="line">      "host": "api2.example.com",</span><br><span class="line">      "port": 4567,</span><br><span class="line">      "ssl": false,</span><br><span class="line">      "insecure": false,</span><br><span class="line">      "user": "",</span><br><span class="line">      "pass": "",</span><br><span class="line">      "path": "",</span><br><span class="line">      "timeout": 5</span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  "uchiwa": &#123;#本地配置</span><br><span class="line">    "host": "0.0.0.0",</span><br><span class="line">    "port": 3000,</span><br><span class="line">    "refresh": 5</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+<li><p>启动dashboard</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">godep go run uchiwa.go</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打开浏览器</p>
+<p>访问<code>http://localhost:3000/</code></p>
+</li>
+<li><p>如果不出意外，到此一个简单的监控系统就可以开始工作了，可以在Go的控制台上检查sensu客户端的工作状态，目前应该只有一些简单的心跳检查的log可以看，像是这：</p>
+<p><img src="http://7xsfv0.com1.z0.glb.clouddn.com//clipboard_tmp_20160518_103153_849000.jpg" alt="sensu 控制台"></p>
+</li>
+</ol>
+<p>我是在虚拟机上装的ubuntu，go环境装在了开发机上，虚拟机直接获取的内网地址，如果需要也可以全部部署在一台服务器上。</p>
+<p>后面就开始研究一下sensu到底能监控点儿啥</p>
+<p>今儿就这样儿了。</p>
+<p>Reference：</p>
+<ol>
+<li><a href="https://segmentfault.com/a/1190000002386457" target="_blank" rel="external">Sensu入门文档</a></li>
+<li><a href="https://sensuapp.org/docs/latest/installation-guide" target="_blank" rel="external">Sensu Installation Guide</a></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-configure-sensu-monitoring-rabbitmq-and-redis-on-ubuntu-14-04" target="_blank" rel="external">How To Configure Sensu Monitoring, RabbitMQ, and Redis on Ubuntu 14.04</a></li>
+<li><a href="http://docs.uchiwa.io/en/latest/getting-started/" target="_blank" rel="external">Uchiwa Getting Started</a></li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag">#Java</a>
+          
+            <a href="/tags/运维/" rel="tag">#运维</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/17/20160517-7-monitor-Tools/" rel="next" title="七个JAVA的系统监控工具">
+                <i class="fa fa-chevron-left"></i> 七个JAVA的系统监控工具
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="Audric" />
+          <p class="site-author-name" itemprop="name">Audric</p>
+          <p class="site-description motion-element" itemprop="description">Nothing Serious</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/evinoca" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.freecodecamp.com/evinoca" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> Freecodecamp
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/audric-sun-60349592" target="_blank">
+                  
+                    <i class="fa fa-linkedin"></i> LinkedIn
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/evinoca/" target="_blank">
+                  
+                    <i class="fa fa-douban"></i> Douban
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux虚拟机"><span class="nav-number">1.1.</span> <span class="nav-text">Linux虚拟机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sensu-安装"><span class="nav-number">1.2.</span> <span class="nav-text">Sensu 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web-UI-Uchiwa"><span class="nav-number">1.3.</span> <span class="nav-text">Web UI- Uchiwa</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Audric</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/vendors/jquery-scrollintoview/jquery.scrollintoview.min.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'evinoca';
+      var disqus_identifier = '2016/05/17/20160517-quick-start-on-Sensu/';
+      var disqus_title = '现学现卖 Sensu&Uchiwa 快速上手';
+      var disqus_url = 'http://evinoca.github.io/2016/05/17/20160517-quick-start-on-Sensu/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

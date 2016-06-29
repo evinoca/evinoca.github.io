@@ -236,6 +236,136 @@
             
               
                 
+                <a class="post-title-link" href="/2016/06/29/20161629-two-python-puzzle/" itemprop="url">
+                  记两个Python小题目
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-29T14:27:44+08:00" content="2016-06-29">
+              2016-06-29
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/29/20161629-two-python-puzzle/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/29/20161629-two-python-puzzle/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>原来还想着向大神们学习一周好歹写一个博客来着，被各种杂事儿耽误了才发现难怪我就是一个俗人…</p>
+<p>最近碰到了两个小问题，把答案记下来勉强当做自己有一些提高吧…</p>
+<h1 id="环绕读取矩阵"><a href="#环绕读取矩阵" class="headerlink" title="环绕读取矩阵"></a>环绕读取矩阵</h1><p>有一个二维数组，类似矩阵。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">testMatrix = [[ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>],</span><br><span class="line">              [<span class="number">10</span>,<span class="number">11</span>,<span class="number">12</span>,<span class="number">13</span>,<span class="number">14</span>,<span class="number">15</span>,<span class="number">16</span>,<span class="number">17</span>,<span class="number">18</span>],</span><br><span class="line">              [<span class="number">19</span>,<span class="number">20</span>,<span class="number">21</span>,<span class="number">22</span>,<span class="number">23</span>,<span class="number">24</span>,<span class="number">25</span>,<span class="number">26</span>,<span class="number">27</span>],</span><br><span class="line">              [<span class="number">28</span>,<span class="number">29</span>,<span class="number">30</span>,<span class="number">31</span>,<span class="number">32</span>,<span class="number">33</span>,<span class="number">34</span>,<span class="number">35</span>,<span class="number">36</span>],</span><br><span class="line">              [<span class="number">37</span>,<span class="number">38</span>,<span class="number">39</span>,<span class="number">40</span>,<span class="number">41</span>,<span class="number">42</span>,<span class="number">43</span>,<span class="number">44</span>,<span class="number">45</span>],</span><br><span class="line">              [<span class="number">46</span>,<span class="number">47</span>,<span class="number">48</span>,<span class="number">49</span>,<span class="number">50</span>,<span class="number">51</span>,<span class="number">52</span>,<span class="number">53</span>,<span class="number">54</span>]]</span><br></pre></td></tr></table></figure>
+<p>需要按照1~9,18,27,36,45,54~46这种顺序顺时针读取数据，到10的时候向内部跳转</p>
+<p>结题思路就是判断每次到达顶角位置转向，完成一圈之后向内部偏移一个位置</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line">	  <span class="string">'''</span><br><span class="line">      Created on 2016年6月23日</span><br><span class="line"></span><br><span class="line">      @author: Audric Sun</span><br><span class="line">      '''</span></span><br><span class="line"></span><br><span class="line">testMatrix = [[ <span class="number">1</span>, <span class="number">2</span>,   <span class="number">3</span>,  <span class="number">4</span>,  <span class="number">5</span>,  <span class="number">6</span>,  <span class="number">7</span>, <span class="number">8</span>,  <span class="number">9</span>],</span><br><span class="line">              [<span class="number">10</span>,<span class="number">11</span>,<span class="number">12</span>,<span class="number">13</span>,<span class="number">14</span>,<span class="number">15</span>,<span class="number">16</span>,<span class="number">17</span>,<span class="number">18</span>],</span><br><span class="line">              [<span class="number">19</span>,<span class="number">20</span>,<span class="number">21</span>,<span class="number">22</span>,<span class="number">23</span>,<span class="number">24</span>,<span class="number">25</span>,<span class="number">26</span>,<span class="number">27</span>],</span><br><span class="line">              [<span class="number">28</span>,<span class="number">29</span>,<span class="number">30</span>,<span class="number">31</span>,<span class="number">32</span>,<span class="number">33</span>,<span class="number">34</span>,<span class="number">35</span>,<span class="number">36</span>],</span><br><span class="line">              [<span class="number">37</span>,<span class="number">38</span>,<span class="number">39</span>,<span class="number">40</span>,<span class="number">41</span>,<span class="number">42</span>,<span class="number">43</span>,<span class="number">44</span>,<span class="number">45</span>],</span><br><span class="line">              [<span class="number">46</span>,<span class="number">47</span>,<span class="number">48</span>,<span class="number">49</span>,<span class="number">50</span>,<span class="number">51</span>,<span class="number">52</span>,<span class="number">53</span>,<span class="number">54</span>]]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">readMatrix</span><span class="params">(matrix)</span>:</span></span><br><span class="line">    l1 = len(matrix)</span><br><span class="line">    l2 = len(matrix[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">print</span> l1,l2</span><br><span class="line">    layer = <span class="number">0</span></span><br><span class="line">    pos = [<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line">    offset = <span class="number">0</span></span><br><span class="line">    d = <span class="number">0</span></span><br><span class="line">    c = l1*l2</span><br><span class="line">    <span class="keyword">while</span> c&gt;<span class="number">0</span>:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">print</span> pos,d,offset,c,matrix[pos[<span class="number">0</span>]][pos[<span class="number">1</span>]]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> pos[<span class="number">0</span>]==<span class="number">0</span>+offset <span class="keyword">and</span> pos[<span class="number">1</span>]==<span class="number">0</span>+offset:</span><br><span class="line">            d = <span class="number">0</span>            </span><br><span class="line">            <span class="keyword">elif</span>  pos[<span class="number">0</span>]==<span class="number">0</span>+offset <span class="keyword">and</span> pos[<span class="number">1</span>]==l2-offset<span class="number">-1</span> :</span><br><span class="line">                d = <span class="number">1</span></span><br><span class="line">                <span class="keyword">elif</span>  pos[<span class="number">0</span>]==l1-offset<span class="number">-1</span> <span class="keyword">and</span> pos[<span class="number">1</span>]==l2-offset<span class="number">-1</span> :</span><br><span class="line">                    d = <span class="number">2</span></span><br><span class="line">                    <span class="keyword">elif</span>  pos[<span class="number">0</span>]==l1-offset<span class="number">-1</span> <span class="keyword">and</span> pos[<span class="number">1</span>]==<span class="number">0</span>+offset :    </span><br><span class="line">                        d = <span class="number">3</span></span><br><span class="line">                        <span class="keyword">else</span>:</span><br><span class="line">                            d = d</span><br><span class="line"></span><br><span class="line">                            <span class="keyword">if</span> d == <span class="number">0</span> :</span><br><span class="line">                                pos[<span class="number">1</span>]+=<span class="number">1</span></span><br><span class="line">                                <span class="keyword">elif</span> d ==<span class="number">1</span>:</span><br><span class="line">                                    pos[<span class="number">0</span>]+=<span class="number">1</span></span><br><span class="line">                                    <span class="keyword">elif</span> d==<span class="number">2</span>:</span><br><span class="line">                                        pos[<span class="number">1</span>]-=<span class="number">1</span></span><br><span class="line">                                        <span class="keyword">elif</span> d==<span class="number">3</span>:</span><br><span class="line">                                            pos[<span class="number">0</span>]-=<span class="number">1</span></span><br><span class="line">                                            <span class="keyword">else</span>:</span><br><span class="line">                                                <span class="keyword">raise</span></span><br><span class="line"></span><br><span class="line">                                                <span class="keyword">if</span> pos==[<span class="number">0</span>+offset,<span class="number">0</span>+offset]:</span><br><span class="line">                                                    offset+=<span class="number">1</span></span><br><span class="line">                                                    pos[<span class="number">0</span>]+=<span class="number">1</span></span><br><span class="line">                                                    pos[<span class="number">1</span>]+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">                                                    c-=<span class="number">1</span></span><br><span class="line">                                                    <span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">                                                        readMatrix(testMatrix)</span><br></pre></td></tr></table></figure>
+<h1 id="计算多维数组"><a href="#计算多维数组" class="headerlink" title="计算多维数组"></a>计算多维数组</h1><p>给定三组多维数组</p>
+<p>[1]=1*1</p>
+<p>[1,[2]]=1+2*2</p>
+<p>[1,[2,[3]]]=1+2*2+3*3</p>
+<p>设计一个算法来计算类似多维数组结果</p>
+<p>思路：</p>
+<p>递归呗…</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">list = [<span class="number">1</span>,[<span class="number">2</span>,[<span class="number">3</span>,[<span class="number">4</span>,[<span class="number">5</span>,[<span class="number">6</span>,[<span class="number">7</span>]]]]]]]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calc</span><span class="params">(list,recrusiveDepth=<span class="number">1</span>)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> list,recrusiveDepth</span><br><span class="line">    r = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> list:</span><br><span class="line">        <span class="keyword">if</span> type(item)==type(<span class="number">1</span>):</span><br><span class="line">            r=r+(item*recrusiveDepth)</span><br><span class="line">        <span class="keyword">elif</span> type(item)==type([]):</span><br><span class="line">            r=r+calc(item,recrusiveDepth+<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> AttributeError,<span class="string">"Args must be int"</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"Depth level:"</span>+str(recrusiveDepth)+<span class="string">" Ret:"</span>+str(r)</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> calc(list)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; </span><br><span class="line">[1, [2, [3, [4, [5, [6, [7]]]]]]] 1</span><br><span class="line">[2, [3, [4, [5, [6, [7]]]]]] 2</span><br><span class="line">[3, [4, [5, [6, [7]]]]] 3</span><br><span class="line">[4, [5, [6, [7]]]] 4</span><br><span class="line">[5, [6, [7]]] 5</span><br><span class="line">[6, [7]] 6</span><br><span class="line">[7] 7</span><br><span class="line">Depth level:7 Ret:49</span><br><span class="line">Depth level:6 Ret:85</span><br><span class="line">Depth level:5 Ret:110</span><br><span class="line">Depth level:4 Ret:126</span><br><span class="line">Depth level:3 Ret:135</span><br><span class="line">Depth level:2 Ret:139</span><br><span class="line">Depth level:1 Ret:140</span><br><span class="line">140</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/05/24/20160524-About-ordering/" itemprop="url">
                   深入理解排序算法
                 </a>
@@ -1361,132 +1491,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/25/20160425-Python-Logger-Module/" itemprop="url">
-                  Python Logger 模块简单一记
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-25T18:27:21+08:00" content="2016-04-25">
-              2016-04-25
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/25/20160425-Python-Logger-Module/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/04/25/20160425-Python-Logger-Module/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Python中的Logging模快"><a href="#Python中的Logging模快" class="headerlink" title="Python中的Logging模快"></a>Python中的Logging模快</h1><p>平常工作中最喜欢的就是热爱打log的开发同事<br>因为我们实际上是做的黑盒顶多算是个灰盒的活儿，没有log就啥也看不出来。<br>顶多算是知道这个东西跟说好的不太一样，到底是怎么不一样完全搞不明白。有log就不一样了，虽然代码看不明白，看打印还是知道在那个方法出了问题的。</p>
-<p>到了自己这儿吧，虽然我一直秉承着优秀的测试人员的优良品德，写代码都是做的测试驱动开发：任何一个模块都恨不得先把单元测试先给准备好才开始动手。<br>开始的时候还好办，单元测试全部用print就行。<br>Python里面基本上啥都能打印，所有变量都很友好，但是到了后来就发现…这完全不是那么个事儿</p>
-<p>调试的时候到处都有print，我还有时候心情很好会打一个TODO，后来事儿多了就顾不上了，最后还得在一堆熟悉的陌生码中找我的print再一个一个删掉</p>
-<p>果然还是得靠logging模块啊，这货开始虽然有点儿闹心，但是用好了真的是debug挚友</p>
-<p>模块其实还是挺友好的，就是我自己记不住代码，每次都得去过去做过的文件里去找。</p>
-<p>这回记好了再去代码里找我就…是真傻</p>
-<h1 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h1><p>调用模块自后的第一件事儿就是给起一个名字就是getLogger</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> logging    </span><br><span class="line"></span><br><span class="line">logger = logging.getLogger(<span class="string">"spam_application"</span>)  </span><br><span class="line">logger.setLevel(logging.DEBUG) </span><br><span class="line"></span><br><span class="line">ch = logging.StreamHandler()  </span><br><span class="line">ch.setLevel(logging.DEBUG) </span><br><span class="line"></span><br><span class="line">formatter = logging.Formatter(<span class="string">"%(asctime)s - %(name)s - %(levelname)s - %(message)s"</span>)  </span><br><span class="line"></span><br><span class="line">ch.setFormatter(formatter)  </span><br><span class="line">logger.addHandler(ch)  </span><br><span class="line"></span><br><span class="line">logger.info(<span class="string">"creating an instance of auxiliary_module.Auxiliary"</span>)</span><br></pre></td></tr></table></figure>
-<pre><code>2016-04-25 16:42:34,802 - spam_application - INFO - creating an instance of auxiliary_module.Auxiliary
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/04/25/20160425-Python-Logger-Module/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1532,7 +1536,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

@@ -1,0 +1,652 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="原来还想着向大神们学习一周好歹写一个博客来着，被各种杂事儿耽误了才发现难怪我就是一个俗人…
+最近碰到了两个小问题，把答案记下来勉强当做自己有一些提高吧…
+环绕读取矩阵有一个二维数组，类似矩阵。
+123456testMatrix = [[ 1, 2, 3, 4, 5, 6, 7, 8, 9],              [10,11,12,13,14,15,16,17,18],">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记两个Python小题目">
+<meta property="og:url" content="http://evinoca.github.io/2016/06/29/20161629-two-python-puzzle/index.html">
+<meta property="og:site_name" content="Audric's Precious Toy Box">
+<meta property="og:description" content="原来还想着向大神们学习一周好歹写一个博客来着，被各种杂事儿耽误了才发现难怪我就是一个俗人…
+最近碰到了两个小问题，把答案记下来勉强当做自己有一些提高吧…
+环绕读取矩阵有一个二维数组，类似矩阵。
+123456testMatrix = [[ 1, 2, 3, 4, 5, 6, 7, 8, 9],              [10,11,12,13,14,15,16,17,18],">
+<meta property="og:updated_time" content="2016-06-29T06:43:23.597Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="记两个Python小题目">
+<meta name="twitter:description" content="原来还想着向大神们学习一周好歹写一个博客来着，被各种杂事儿耽误了才发现难怪我就是一个俗人…
+最近碰到了两个小问题，把答案记下来勉强当做自己有一些提高吧…
+环绕读取矩阵有一个二维数组，类似矩阵。
+123456testMatrix = [[ 1, 2, 3, 4, 5, 6, 7, 8, 9],              [10,11,12,13,14,15,16,17,18],">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 记两个Python小题目 | Audric's Precious Toy Box </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?625dfa09271d60f4da0f01277bee349e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Audric's Precious Toy Box</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">一个测试工程师的自我修养</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                记两个Python小题目
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-29T14:27:44+08:00" content="2016-06-29">
+              2016-06-29
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/29/20161629-two-python-puzzle/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/29/20161629-two-python-puzzle/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>原来还想着向大神们学习一周好歹写一个博客来着，被各种杂事儿耽误了才发现难怪我就是一个俗人…</p>
+<p>最近碰到了两个小问题，把答案记下来勉强当做自己有一些提高吧…</p>
+<h1 id="环绕读取矩阵"><a href="#环绕读取矩阵" class="headerlink" title="环绕读取矩阵"></a>环绕读取矩阵</h1><p>有一个二维数组，类似矩阵。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">testMatrix = [[ <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>],</span><br><span class="line">              [<span class="number">10</span>,<span class="number">11</span>,<span class="number">12</span>,<span class="number">13</span>,<span class="number">14</span>,<span class="number">15</span>,<span class="number">16</span>,<span class="number">17</span>,<span class="number">18</span>],</span><br><span class="line">              [<span class="number">19</span>,<span class="number">20</span>,<span class="number">21</span>,<span class="number">22</span>,<span class="number">23</span>,<span class="number">24</span>,<span class="number">25</span>,<span class="number">26</span>,<span class="number">27</span>],</span><br><span class="line">              [<span class="number">28</span>,<span class="number">29</span>,<span class="number">30</span>,<span class="number">31</span>,<span class="number">32</span>,<span class="number">33</span>,<span class="number">34</span>,<span class="number">35</span>,<span class="number">36</span>],</span><br><span class="line">              [<span class="number">37</span>,<span class="number">38</span>,<span class="number">39</span>,<span class="number">40</span>,<span class="number">41</span>,<span class="number">42</span>,<span class="number">43</span>,<span class="number">44</span>,<span class="number">45</span>],</span><br><span class="line">              [<span class="number">46</span>,<span class="number">47</span>,<span class="number">48</span>,<span class="number">49</span>,<span class="number">50</span>,<span class="number">51</span>,<span class="number">52</span>,<span class="number">53</span>,<span class="number">54</span>]]</span><br></pre></td></tr></table></figure>
+<p>需要按照1~9,18,27,36,45,54~46这种顺序顺时针读取数据，到10的时候向内部跳转</p>
+<p>结题思路就是判断每次到达顶角位置转向，完成一圈之后向内部偏移一个位置</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line">	  <span class="string">'''</span><br><span class="line">      Created on 2016年6月23日</span><br><span class="line"></span><br><span class="line">      @author: Audric Sun</span><br><span class="line">      '''</span></span><br><span class="line"></span><br><span class="line">testMatrix = [[ <span class="number">1</span>, <span class="number">2</span>,   <span class="number">3</span>,  <span class="number">4</span>,  <span class="number">5</span>,  <span class="number">6</span>,  <span class="number">7</span>, <span class="number">8</span>,  <span class="number">9</span>],</span><br><span class="line">              [<span class="number">10</span>,<span class="number">11</span>,<span class="number">12</span>,<span class="number">13</span>,<span class="number">14</span>,<span class="number">15</span>,<span class="number">16</span>,<span class="number">17</span>,<span class="number">18</span>],</span><br><span class="line">              [<span class="number">19</span>,<span class="number">20</span>,<span class="number">21</span>,<span class="number">22</span>,<span class="number">23</span>,<span class="number">24</span>,<span class="number">25</span>,<span class="number">26</span>,<span class="number">27</span>],</span><br><span class="line">              [<span class="number">28</span>,<span class="number">29</span>,<span class="number">30</span>,<span class="number">31</span>,<span class="number">32</span>,<span class="number">33</span>,<span class="number">34</span>,<span class="number">35</span>,<span class="number">36</span>],</span><br><span class="line">              [<span class="number">37</span>,<span class="number">38</span>,<span class="number">39</span>,<span class="number">40</span>,<span class="number">41</span>,<span class="number">42</span>,<span class="number">43</span>,<span class="number">44</span>,<span class="number">45</span>],</span><br><span class="line">              [<span class="number">46</span>,<span class="number">47</span>,<span class="number">48</span>,<span class="number">49</span>,<span class="number">50</span>,<span class="number">51</span>,<span class="number">52</span>,<span class="number">53</span>,<span class="number">54</span>]]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">readMatrix</span><span class="params">(matrix)</span>:</span></span><br><span class="line">    l1 = len(matrix)</span><br><span class="line">    l2 = len(matrix[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">print</span> l1,l2</span><br><span class="line">    layer = <span class="number">0</span></span><br><span class="line">    pos = [<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line">    offset = <span class="number">0</span></span><br><span class="line">    d = <span class="number">0</span></span><br><span class="line">    c = l1*l2</span><br><span class="line">    <span class="keyword">while</span> c&gt;<span class="number">0</span>:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">print</span> pos,d,offset,c,matrix[pos[<span class="number">0</span>]][pos[<span class="number">1</span>]]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> pos[<span class="number">0</span>]==<span class="number">0</span>+offset <span class="keyword">and</span> pos[<span class="number">1</span>]==<span class="number">0</span>+offset:</span><br><span class="line">            d = <span class="number">0</span>            </span><br><span class="line">            <span class="keyword">elif</span>  pos[<span class="number">0</span>]==<span class="number">0</span>+offset <span class="keyword">and</span> pos[<span class="number">1</span>]==l2-offset<span class="number">-1</span> :</span><br><span class="line">                d = <span class="number">1</span></span><br><span class="line">                <span class="keyword">elif</span>  pos[<span class="number">0</span>]==l1-offset<span class="number">-1</span> <span class="keyword">and</span> pos[<span class="number">1</span>]==l2-offset<span class="number">-1</span> :</span><br><span class="line">                    d = <span class="number">2</span></span><br><span class="line">                    <span class="keyword">elif</span>  pos[<span class="number">0</span>]==l1-offset<span class="number">-1</span> <span class="keyword">and</span> pos[<span class="number">1</span>]==<span class="number">0</span>+offset :    </span><br><span class="line">                        d = <span class="number">3</span></span><br><span class="line">                        <span class="keyword">else</span>:</span><br><span class="line">                            d = d</span><br><span class="line"></span><br><span class="line">                            <span class="keyword">if</span> d == <span class="number">0</span> :</span><br><span class="line">                                pos[<span class="number">1</span>]+=<span class="number">1</span></span><br><span class="line">                                <span class="keyword">elif</span> d ==<span class="number">1</span>:</span><br><span class="line">                                    pos[<span class="number">0</span>]+=<span class="number">1</span></span><br><span class="line">                                    <span class="keyword">elif</span> d==<span class="number">2</span>:</span><br><span class="line">                                        pos[<span class="number">1</span>]-=<span class="number">1</span></span><br><span class="line">                                        <span class="keyword">elif</span> d==<span class="number">3</span>:</span><br><span class="line">                                            pos[<span class="number">0</span>]-=<span class="number">1</span></span><br><span class="line">                                            <span class="keyword">else</span>:</span><br><span class="line">                                                <span class="keyword">raise</span></span><br><span class="line"></span><br><span class="line">                                                <span class="keyword">if</span> pos==[<span class="number">0</span>+offset,<span class="number">0</span>+offset]:</span><br><span class="line">                                                    offset+=<span class="number">1</span></span><br><span class="line">                                                    pos[<span class="number">0</span>]+=<span class="number">1</span></span><br><span class="line">                                                    pos[<span class="number">1</span>]+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">                                                    c-=<span class="number">1</span></span><br><span class="line">                                                    <span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">                                                        readMatrix(testMatrix)</span><br></pre></td></tr></table></figure>
+<h1 id="计算多维数组"><a href="#计算多维数组" class="headerlink" title="计算多维数组"></a>计算多维数组</h1><p>给定三组多维数组</p>
+<p>[1]=1*1</p>
+<p>[1,[2]]=1+2*2</p>
+<p>[1,[2,[3]]]=1+2*2+3*3</p>
+<p>设计一个算法来计算类似多维数组结果</p>
+<p>思路：</p>
+<p>递归呗…</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">list = [<span class="number">1</span>,[<span class="number">2</span>,[<span class="number">3</span>,[<span class="number">4</span>,[<span class="number">5</span>,[<span class="number">6</span>,[<span class="number">7</span>]]]]]]]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calc</span><span class="params">(list,recrusiveDepth=<span class="number">1</span>)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> list,recrusiveDepth</span><br><span class="line">    r = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> list:</span><br><span class="line">        <span class="keyword">if</span> type(item)==type(<span class="number">1</span>):</span><br><span class="line">            r=r+(item*recrusiveDepth)</span><br><span class="line">        <span class="keyword">elif</span> type(item)==type([]):</span><br><span class="line">            r=r+calc(item,recrusiveDepth+<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> AttributeError,<span class="string">"Args must be int"</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"Depth level:"</span>+str(recrusiveDepth)+<span class="string">" Ret:"</span>+str(r)</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> calc(list)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; </span><br><span class="line">[1, [2, [3, [4, [5, [6, [7]]]]]]] 1</span><br><span class="line">[2, [3, [4, [5, [6, [7]]]]]] 2</span><br><span class="line">[3, [4, [5, [6, [7]]]]] 3</span><br><span class="line">[4, [5, [6, [7]]]] 4</span><br><span class="line">[5, [6, [7]]] 5</span><br><span class="line">[6, [7]] 6</span><br><span class="line">[7] 7</span><br><span class="line">Depth level:7 Ret:49</span><br><span class="line">Depth level:6 Ret:85</span><br><span class="line">Depth level:5 Ret:110</span><br><span class="line">Depth level:4 Ret:126</span><br><span class="line">Depth level:3 Ret:135</span><br><span class="line">Depth level:2 Ret:139</span><br><span class="line">Depth level:1 Ret:140</span><br><span class="line">140</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag">#Python</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/24/20160524-About-ordering/" rel="next" title="深入理解排序算法">
+                <i class="fa fa-chevron-left"></i> 深入理解排序算法
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="Audric" />
+          <p class="site-author-name" itemprop="name">Audric</p>
+          <p class="site-description motion-element" itemprop="description">Nothing Serious</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/evinoca" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.freecodecamp.com/evinoca" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> Freecodecamp
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/audric-sun-60349592" target="_blank">
+                  
+                    <i class="fa fa-linkedin"></i> LinkedIn
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/evinoca/" target="_blank">
+                  
+                    <i class="fa fa-douban"></i> Douban
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环绕读取矩阵"><span class="nav-number">1.</span> <span class="nav-text">环绕读取矩阵</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计算多维数组"><span class="nav-number">2.</span> <span class="nav-text">计算多维数组</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Audric</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/vendors/jquery-scrollintoview/jquery.scrollintoview.min.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'evinoca';
+      var disqus_identifier = '2016/06/29/20161629-two-python-puzzle/';
+      var disqus_title = '记两个Python小题目';
+      var disqus_url = 'http://evinoca.github.io/2016/06/29/20161629-two-python-puzzle/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
